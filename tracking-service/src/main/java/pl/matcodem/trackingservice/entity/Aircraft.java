@@ -1,8 +1,6 @@
 package pl.matcodem.trackingservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import pl.matcodem.trackingservice.enums.CabinClass;
 
@@ -24,6 +22,8 @@ public class Aircraft {
     private Integer luxurySeats;
     private String model;
     private boolean isNewAircraft;
+
+    @Enumerated(value = EnumType.STRING)
     private Set<CabinClass> classes;
 
     public boolean isFull() {

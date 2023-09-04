@@ -32,7 +32,7 @@ public class Flight {
     @JoinTable(name = "flight_alliance",
             joinColumns = @JoinColumn(name = "flight_id"),
             inverseJoinColumns = @JoinColumn(name = "alliance_code"))
-    private Set<Alliance> allianceCodes;
+    private Set<Alliance> alliances;
 
     private LocalDateTime departureDateTime;
     private Integer durationMinutes;
