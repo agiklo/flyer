@@ -89,4 +89,11 @@ public class Flight {
     public boolean isLateArrival() {
         return getArrivalTime().isAfter(LocalTime.parse("21:00:00"));
     }
+
+    public boolean isDirectFlight() {
+        if (segments.isEmpty()) {
+            throw new IllegalStateException("A flight must consist of at least one segment!");
+        }
+        return segments.size() == 1;
+    }
 }
