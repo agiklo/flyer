@@ -1,37 +1,34 @@
 package pl.matcodem.trackingservice.response;
 
 import lombok.Builder;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
-@Data
 @Builder
-public class OnewayTripResponse {
-    private Long tripId;
-    private LocalTime departureTime;
-    private String departureAirportCode;
-    private String arrivalAirportCode;
-    private Set<String> airlineCodes;
-    private Set<String> stopoverAirportCodes;
-    private Set<String> allianceCodes;
-    private Integer stopoversCount;
-    private LocalDateTime departureDateTime;
-    private LocalDateTime arrivalDateTime;
-    private Integer stopoverDurationMinutes;
-    private Integer durationMinutes;
-    private Boolean overnight;
-    private LocalTime stopoverDuration;
-    private Integer durationDays;
-    private Boolean longStopover;
-    private Set<Leg> legs;
-    private Boolean shortStopover;
-    private Boolean earlyDeparture;
-    private Boolean lateArrival;
-    private Boolean newAircraft;
-    private Boolean oldAircraft;
-    private Boolean highlyRatedCarrier;
-    private Double score;
+public record OnewayTripResponse(Long tripId,
+                                 LocalTime departureTime,
+                                 String departureAirportCode,
+                                 String arrivalAirportCode,
+                                 Set<String> airlineCodes,
+                                 Set<String> stopoverAirportCodes,
+                                 Set<String> allianceCodes,
+                                 Integer stopoversCount,
+                                 LocalDateTime departureDateTime,
+                                 LocalDateTime arrivalDateTime,
+                                 Integer stopoverDurationMinutes,
+                                 Integer durationMinutes,
+                                 Boolean overnight,
+                                 LocalTime stopoverDuration,
+                                 Integer durationDays,
+                                 Boolean longStopover,
+                                 Set<Leg> legs,
+                                 Boolean shortStopover,
+                                 Boolean earlyDeparture,
+                                 Boolean lateArrival,
+                                 Boolean newAircraft,
+                                 Boolean oldAircraft,
+                                 Boolean highlyRatedCarrier,
+                                 Double score) {
 }
