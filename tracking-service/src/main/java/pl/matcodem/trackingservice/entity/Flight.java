@@ -14,6 +14,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedQuery(name = "Flight.getFlightsByDepartureIcaoCode",
+        query = "SELECT f FROM Flight f WHERE f.departureAirport.icaoCode =:code")
+@NamedQuery(name = "Flight.getFlightsByArrivalIcaoCode",
+        query = "SELECT f FROM Flight f WHERE f.arrivalAirport.icaoCode =:code")
 public class Flight {
 
     @Id
