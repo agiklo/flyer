@@ -3,14 +3,11 @@ package pl.matcodem.trackingservice.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.matcodem.trackingservice.entity.Flight;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
-public interface FlightRepository extends JpaRepository<Flight, Long> {
+public interface FlightRepository extends JpaRepository<Flight, String> {
 
-    List<Flight> getFlightsByDepartureIcaoCode(String code);
-    List<Flight> getFlightsByArrivalIcaoCode(String code);
-    List<Flight> getFlightsByIcaoCodesAndDepatureDate(String departureCode, String arrivalCode, LocalDateTime date);
-    List<Flight> findFlightsByDepartureDateTime_Date(LocalDate date);
+    List<Flight> findFlightsByDepartureAndArrivalAirports(String departureIcao, String arrivalIcao);
+    List<Flight> findFlightsByDepartureAirport(String departureIcao);
+    List<Flight> findFlightsByArrivalAirport(String arrivalIcao);
 }

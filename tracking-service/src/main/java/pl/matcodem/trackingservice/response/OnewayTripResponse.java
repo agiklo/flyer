@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Builder
 public class OnewayTripResponse {
-    private Long flightId;
+    private Long tripId;
     private LocalTime departureTime;
     private String departureAirportCode;
     private String arrivalAirportCode;
@@ -26,7 +26,7 @@ public class OnewayTripResponse {
     private LocalTime stopoverDuration;
     private Integer durationDays;
     private Boolean longStopover;
-    private Set<SegmentResponse> segments;
+    private Set<Leg> legs;
     private Boolean shortStopover;
     private Boolean earlyDeparture;
     private Boolean lateArrival;

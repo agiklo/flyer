@@ -26,10 +26,10 @@ public class Stopover {
     private Integer stopoverDurationMinutes;
 
     @OneToOne(mappedBy = "designator_code")
-    private Segment precedingSegment;
+    private Flight precedingFlight;
 
     public boolean isShortStopover() {
-        String destinationCountry = precedingSegment.getArrivalAirport().getCountry();
+        String destinationCountry = precedingFlight.getArrivalAirport().getCountry();
         boolean isTheSameCountry = airport.getCountry().equals(destinationCountry);
         return isTheSameCountry ? stopoverDurationMinutes <= 30 : stopoverDurationMinutes <= 60;
     }

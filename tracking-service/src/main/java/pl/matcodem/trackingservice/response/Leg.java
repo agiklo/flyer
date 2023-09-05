@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class SegmentResponse {
+public class Leg {
     private Integer durationMinutes;
     private Integer stopoverDurationMinutes;
     private String departureAirportCode;
