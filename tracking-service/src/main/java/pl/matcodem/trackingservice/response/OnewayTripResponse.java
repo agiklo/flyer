@@ -12,7 +12,6 @@ import java.util.Set;
 public class OnewayTripResponse {
     private Long flightId;
     private LocalTime departureTime;
-    private Double durationInMinutes;
     private String departureAirportCode;
     private String arrivalAirportCode;
     private Set<String> airlineCodes;
@@ -28,8 +27,6 @@ public class OnewayTripResponse {
     private Integer durationDays;
     private Boolean longStopover;
     private Set<SegmentResponse> segments;
-    private Set<String> operatingAirlineCodes;
-    private String stopoverCode;
     private Boolean shortStopover;
     private Boolean earlyDeparture;
     private Boolean lateArrival;

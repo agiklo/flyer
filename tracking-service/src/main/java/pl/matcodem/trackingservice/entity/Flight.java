@@ -7,7 +7,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 @Entity
 @Table(name = "flights")
@@ -18,6 +21,13 @@ import java.util.Set;
         query = "SELECT f FROM Flight f WHERE f.departureAirport.icaoCode =:code")
 @NamedQuery(name = "Flight.getFlightsByArrivalIcaoCode",
         query = "SELECT f FROM Flight f WHERE f.arrivalAirport.icaoCode =:code")
+@NamedQuery(name = "Flight.getFlightsByIcaoCodesAndDepatureDate",
+        query = """
+                SELECT f FROM Flight f WHERE
+                f.arrivalAirport.icaoCode =:arrivalCode AND
+                f.departureAirport.icaoCode =:departureCode AND
+                f.departureDateTime =: date
+                """)
 public class Flight {
 
     @Id
@@ -99,5 +109,56 @@ public class Flight {
             throw new IllegalStateException("A flight must consist of at least one segment!");
         }
         return segments.size() == 1;
+    }
+
+    public Set<String> getAirlineCodes() {
+    return segments.stream()
+            .map(segment -> segment.getAirline().getAirlineCode())
+            .collect(toSet());
+    }
+
+    public boolean containsShortStopover() {
+        return segments.stream()
+                .map(Segment::getStopover)
+                .anyMatch(Stopover::isShortStopover);
+    }
+
+    public boolean containsLongStopover() {
+        return segments.stream()
+                .map(Segment::getStopover)
+                .anyMatch(stopover -> !stopover.isShortStopover());
+    }
+
+    public Integer getstopoversCount() {
+        return Math.toIntExact(segments.stream()
+                .map(Segment::getStopover)
+                .filter(Objects::nonNull)
+                .count());
+    }
+
+    public Integer getStopoverDurationMinutes() {
+        return segments.stream()
+                .mapToInt(segment -> segment.getStopover().getStopoverDurationMinutes())
+                .sum();
+    }
+
+    public Set<String> getAllianceCodes() {
+        return alliances.stream()
+                .map(Alliance::getAllianceCode)
+                .collect(toSet());
+    }
+
+    public Set<String> getStopoverAiportCodes() {
+        return segments.stream()
+                .map(segment -> segment.getStopover().getAirport().getIcaoCode())
+                .collect(toSet());
+    }
+
+    public LocalTime getStopoverDuration() {
+        var stopoverDuration = LocalTime.MIDNIGHT;
+        segments.stream()
+                .map(segment -> segment.getStopover().getStopoverDurationMinutes())
+                .forEach(stopoverDuration::plusMinutes);
+        return stopoverDuration;
     }
 }

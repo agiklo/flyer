@@ -13,7 +13,6 @@ public class SegmentResponse {
     private String departureAirportCode;
     private String arrivalAirportCode;
     private String airlineCode;
-    private String operatingAirlineCode;
     private String cabin;
     private String designatorCode;
     private LocalDateTime departureDateTime;
