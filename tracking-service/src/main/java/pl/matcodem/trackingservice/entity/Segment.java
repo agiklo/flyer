@@ -21,6 +21,10 @@ import java.time.LocalDateTime;
                 AND
                 s.departureAirport.icaoCode =:departureIcao
                 """)
+@NamedQuery(name = "Segment.findSegmentsByArrivalAirport",
+        query = "SELECT s FROM Segment s WHERE s.arrivalAirport.icaoCode =:arrivalIcao")
+@NamedQuery(name = "Segment.findSegmentsByDepartureAirport",
+        query = "SELECT s FROM Segment s WHERE s.departureAirport.icaoCode =:departureIcao")
 public class Segment {
 
     @Id

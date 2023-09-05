@@ -8,4 +8,6 @@ import java.util.List;
 public interface SegmentRepository extends JpaRepository<Segment, String> {
 
     List<Segment> findSegmentsByDepartureAndArrivalAirports(String departureIcao, String arrivalIcao);
+    List<Segment> findSegmentsByDepartureAirport(String departureIcao);
+    List<Segment> findSegmentsByArrivalAirport(String arrivalIcao);
 }
