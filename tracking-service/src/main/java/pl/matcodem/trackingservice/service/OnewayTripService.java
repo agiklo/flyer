@@ -8,26 +8,29 @@ import pl.matcodem.trackingservice.entity.Airport;
 import pl.matcodem.trackingservice.entity.Flight;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.mapper.TripMapper;
-import pl.matcodem.trackingservice.repository.TripRepository;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
 import pl.matcodem.trackingservice.response.OnewayTripResponse;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class OnewayTripService {
 
     private final TripMapper tripMapper;
-    private final TripRepository tripRepository;
     private final FlightService flightService;
 
     public Page<OnewayTripResponse> findOnewayTrips(OnewayTripRequest request) {
         var departureIcaoCode = request.departureAirportCode();
         var arrivalIcaoCode = request.arrivalAirportCode();
-        var departureDate = request.departureDate().atStartOfDay();
-        List<Trip> foundTrips = tripRepository.getTripsByIcaoCodesAndDepatureDate(departureIcaoCode, arrivalIcaoCode, departureDate);
-        var mappedTrips = foundTrips.stream().map(tripMapper::mapTripToOnewayTripResponse).toList();
+        var departureDate = request.departureDate();
+        List<Trip> possibleTrips = findPossibleTrips(departureIcaoCode, arrivalIcaoCode, departureDate);
+        var mappedTrips = possibleTrips.stream()
+                .map(tripMapper::mapTripToOnewayTripResponse)
+                .toList();
         return new PageImpl<>(mappedTrips);
     }
 
@@ -38,9 +41,9 @@ public class OnewayTripService {
      * @param arrivalIcaoCode   icao code of the destinated airport
      * @return list of possible trips to choose
      */
-    public List<Trip> findPossibleTrips(String departureIcaoCode, String arrivalIcaoCode) {
+    private List<Trip> findPossibleTrips(String departureIcaoCode, String arrivalIcaoCode, LocalDate departureDate) {
         List<Trip> possibleTrips = new LinkedList<>();
-        List<Flight> foundFlights = flightService.getAllFlightsByDepartureIcao(departureIcaoCode);
+        List<Flight> foundFlights = flightService.getAllFlightsByDepartureIcao(departureIcaoCode, departureDate);
         foundFlights.forEach(flight -> {
             Airport arrivalAirport = flight.getArrivalAirport();
             if (isMatchingDestination(arrivalAirport, arrivalIcaoCode)) {
@@ -52,7 +55,7 @@ public class OnewayTripService {
                         .flights(Set.of(flight))
                         .build());
             }
-            List<Flight> secondFlights = flightService.getAllFlightsByDepartureIcao(arrivalAirport.getIcaoCode());
+            List<Flight> secondFlights = flightService.getAllFlightsByDepartureIcao(arrivalAirport.getIcaoCode(), departureDate);
             secondFlights.stream()
                     .filter(secondFlight -> isMatchingDestination(secondFlight.getArrivalAirport(), arrivalIcaoCode))
                     .map(secondFlight -> Trip.builder()
