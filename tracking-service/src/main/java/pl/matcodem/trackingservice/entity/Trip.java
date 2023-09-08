@@ -1,9 +1,7 @@
 package pl.matcodem.trackingservice.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,6 +14,8 @@ import static java.util.stream.Collectors.toSet;
 @Table(name = "trips")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @NamedQuery(name = "Trip.getTripsByDepartureIcaoCode",
         query = "SELECT t FROM Trip t WHERE t.departureAirport.icaoCode =:code")
@@ -60,6 +60,18 @@ public class Trip {
 
     @Embedded
     private Price price;
+
+    public Trip(Airport departureAirport, Airport arrivalAirport, Set<Alliance> alliances, LocalDateTime departureDateTime, Integer durationMinutes, Set<Flight> flights, Boolean highlyRatedCarrier, Double score, Price price) {
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        this.alliances = alliances;
+        this.departureDateTime = departureDateTime;
+        this.durationMinutes = durationMinutes;
+        this.flights = flights;
+        this.highlyRatedCarrier = highlyRatedCarrier;
+        this.score = score;
+        this.price = price;
+    }
 
     public boolean containsNewAircraft() {
         return this.flights.stream()
