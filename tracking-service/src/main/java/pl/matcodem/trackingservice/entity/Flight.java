@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.domain.AbstractAggregateRoot;
+import pl.matcodem.trackingservice.events.FlightDelayEvent;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +16,8 @@ import java.time.LocalDateTime;
 @Table(name = "flights")
 @Getter
 @Setter
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQuery(name = "Flight.findFlightsByDepartureAndArrivalAirports",
@@ -21,13 +27,21 @@ import java.time.LocalDateTime;
                 AND
                 f.departureAirport.icaoCode =:departureIcao
                 """)
+@NamedQuery(name = "Flight.findFlightsByDepartureIcaoCodeAndDateTimeAfter",
+        query = """
+                SELECT f FROM Flight f WHERE
+                f.departureAirport.icaoCode =:departureIcao
+                AND
+                f.departureDateTime >= :date
+                """)
 @NamedQuery(name = "Flight.findFlightsByArrivalAirport",
         query = "SELECT f FROM Flight f WHERE f.arrivalAirport.icaoCode =:arrivalIcao")
 @NamedQuery(name = "Flight.findFlightsByDepartureAirport",
         query = "SELECT f FROM Flight f WHERE f.departureAirport.icaoCode =:departureIcao")
-public class Flight {
+public class Flight extends AbstractAggregateRoot<Flight> {
 
     @Id
+    @Column(name = "designator_code")
     private String designatorCode;
 
     @ManyToOne
@@ -61,5 +75,11 @@ public class Flight {
 
     public LocalDateTime getArrivalDateTime() {
         return departureDateTime.plusMinutes(durationMinutes);
+    }
+
+    public void setNewDepartureDateTimeDelay(LocalDateTime departureDateTimeDelay) {
+        int delayInMinutes = 0; // implement difference between departureDateTimeDelay and departureDateTime
+        this.departureDateTime = departureDateTimeDelay;
+        registerEvent(new FlightDelayEvent(designatorCode, departureDateTimeDelay, delayInMinutes));
     }
 }
