@@ -20,12 +20,12 @@ public class Stopover {
     private String stopoverCode;
 
     @ManyToOne
-    @JoinColumn(name = "stopover_code")
+    @JoinColumn(name = "icao_code")
     private Airport airport;
 
     private Integer stopoverDurationMinutes;
 
-    @OneToOne(mappedBy = "designator_code")
+    @OneToOne(mappedBy = "stopover")
     private Flight precedingFlight;
 
     public boolean isShortStopover() {

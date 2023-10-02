@@ -11,7 +11,7 @@ import pl.matcodem.trackingservice.service.OnewayTripService;
 
 @Controller
 @RequiredArgsConstructor
-public class TripController {
+public class TripGraphQlController {
 
     private final OnewayTripService onewayTripService;
 
