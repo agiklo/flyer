@@ -34,6 +34,9 @@ public class OnewayTripService {
         LocalDate departureDate = request.departureDate();
         int maxStopovers = request.maxStopovers();
         List<Trip> possibleTrips = findPossibleTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
+
+        possibleTrips.sort(Comparator.comparingInt(Trip::getDurationMinutes));
+
         List<OnewayTripResponse> mappedTrips = possibleTrips.stream()
                 .map(tripMapper::mapTripToOnewayTripResponse)
                 .toList();
