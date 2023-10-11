@@ -4,18 +4,18 @@ import org.springframework.stereotype.Component;
 import pl.matcodem.trackingservice.entity.Flight;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.response.Leg;
-import pl.matcodem.trackingservice.response.OnewayTripResponse;
+import pl.matcodem.trackingservice.response.TripResponse;
 
 import static java.util.stream.Collectors.toSet;
 
 @Component
 public class TripMapper {
 
-    public OnewayTripResponse mapTripToOnewayTripResponse(Trip trip) {
+    public TripResponse mapTripToTripResponse(Trip trip) {
         var legs = trip.getFlights().stream()
                 .map(this::mapFlightToLegResponse)
                 .collect(toSet());
-        return OnewayTripResponse.builder()
+        return TripResponse.builder()
                 .tripId(trip.getTripId())
                 .departureTime(trip.getDepartureTime())
                 .departureAirportCode(trip.getDepartureAirport().getIcaoCode())

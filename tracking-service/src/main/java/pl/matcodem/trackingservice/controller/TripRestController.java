@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
-import pl.matcodem.trackingservice.response.OnewayTripResponse;
+import pl.matcodem.trackingservice.request.RoundtripRequest;
+import pl.matcodem.trackingservice.response.RoundtripResponse;
+import pl.matcodem.trackingservice.response.TripResponse;
 import pl.matcodem.trackingservice.service.OnewayTripService;
+import pl.matcodem.trackingservice.service.RoundtripService;
 
 @RestController
 @RequestMapping(name = "api/v1/trips")
@@ -16,9 +19,15 @@ import pl.matcodem.trackingservice.service.OnewayTripService;
 public class TripRestController {
 
     private final OnewayTripService onewayTripService;
+    private final RoundtripService roundtripService;
 
     @GetMapping
-    public Page<OnewayTripResponse> findTripByDestinationAndDate(@RequestBody OnewayTripRequest request) {
+    public Page<TripResponse> findOnewayTripByDestinationAndDate(@RequestBody OnewayTripRequest request) {
         return onewayTripService.findOnewayTrips(request);
+    }
+
+    @GetMapping
+    public RoundtripResponse findRoundtripByDestinationAndDate(@RequestBody RoundtripRequest request) {
+        return roundtripService.findRoundtrips(request);
     }
 }
