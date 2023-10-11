@@ -6,4 +6,5 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
 
     <include file="/db/changelog/airlines/changelog-airlines.xml"/>
+    <include file="/db/changelog/aircrafts/changelog-aircrafts.xml"/>
 </databaseChangeLog>
