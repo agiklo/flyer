@@ -15,5 +15,6 @@ public record OnewayTripRequest(
         Integer numberOfChildrens,
         Integer numberOfInfants,
         CabinClass cabinClass,
-        Currency currency) {
+        Currency currency,
+        Integer maxStopovers) {
 }
