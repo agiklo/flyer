@@ -30,13 +30,16 @@ public class OnewayTripService {
         String arrivalIcaoCode = request.arrivalAirportCode();
         LocalDate departureDate = request.departureDate();
         int maxStopovers = request.maxStopovers();
+
+        List<TripResponse> possibleTrips = findTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
+        return new PageImpl<>(possibleTrips);
+    }
+
+    private List<TripResponse> findTrips(String departureIcaoCode, String arrivalIcaoCode, LocalDate departureDate, int maxStopovers) {
         List<Trip> possibleTrips = tripFinder.findPossibleTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
-
-        possibleTrips.sort(Comparator.comparingInt(Trip::getDurationMinutes));
-
-        List<TripResponse> mappedTrips = possibleTrips.stream()
+        return possibleTrips.stream()
+                .sorted(Comparator.comparingInt(Trip::getDurationMinutes))
                 .map(tripMapper::mapTripToTripResponse)
                 .toList();
-        return new PageImpl<>(mappedTrips);
     }
 }
