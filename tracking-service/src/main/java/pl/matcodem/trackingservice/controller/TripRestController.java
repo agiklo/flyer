@@ -3,8 +3,8 @@ package pl.matcodem.trackingservice.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
 import pl.matcodem.trackingservice.request.RoundTripRequest;
@@ -14,7 +14,7 @@ import pl.matcodem.trackingservice.service.OnewayTripService;
 import pl.matcodem.trackingservice.service.RoundtripService;
 
 @RestController
-@RequestMapping(name = "api/v1/trips")
+@RequestMapping("/api/v1/trips")
 @RequiredArgsConstructor
 public class TripRestController {
 
