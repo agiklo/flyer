@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface FlightRepository extends JpaRepository<Flight, String> {
 
-    List<Flight> findFlightsByDepartureAndArrivalAirports(String departureIcao, String arrivalIcao);
+    Page<Flight> findFlightsByDepartureAndArrivalAirports(String departureIcao, String arrivalIcao, Pageable pageable);
     List<Flight> findFlightsByDepartureIcaoCodeAndDateTimeAfter(String departureIcao, LocalDateTime date);
     Page<Flight> findFlightsByDepartureIcaoCodeAndDateTimeAfter(String departureIcao, LocalDateTime date, Pageable pageable);
-    List<Flight> findFlightsByArrivalAirport(String arrivalIcao);
+    Page<Flight> findFlightsByArrivalAirport(String arrivalIcao, Pageable pageable);
     Page<Flight> findFlightsByDepartureAndArrivalAirportsAndDate(String departureIcao, String arrivalIcao, LocalDateTime date, Pageable pageable);
 }
