@@ -1,8 +1,10 @@
 server:
   port: 8081
 spring:
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
   application:
     name: tracking-service
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none

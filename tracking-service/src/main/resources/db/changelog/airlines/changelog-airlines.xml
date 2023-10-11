@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet author="mmilewczyk" id="create-airlines-table">
+        <createTable tableName="airlines">
+            <column name="airline_code" type="VARCHAR(10)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="mmilewczyk" id="insert-airlines-data">
+        <sql>
+            INSERT INTO airlines (airline_code, name)
+            VALUES ('LH', 'Lufthansa'),
+                   ('BA', 'British Airways'),
+                   ('AF', 'Air France'),
+                   ('KL', 'KLM Royal Dutch Airlines'),
+                   ('AZ', 'Alitalia'),
+                   ('TK', 'Turkish Airlines'),
+                   ('AY', 'Finnair'),
+                   ('SK', 'SAS Scandinavian Airlines'),
+                   ('IB', 'Iberia'),
+                   ('A3', 'Aegean Airlines'),
+                   ('OK', 'Czech Airlines'),
+                   ('SN', 'Brussels Airlines'),
+                   ('W6', 'Wizz Air'),
+                   ('FR', 'Ryanair'),
+                   ('U2', 'easyJet'),
+                   ('U6', 'Ural Airlines'),
+                   ('OS', 'Austrian Airlines'),
+                   ('SQ', 'Singapore Airlines'),
+                   ('CX', 'Cathay Pacific Airways'),
+                   ('NH', 'All Nippon Airways'),
+                   ('KE', 'Korean Air'),
+                   ('EY', 'Etihad Airways'),
+                   ('QR', 'Qatar Airways'),
+                   ('EK', 'Emirates'),
+                   ('JL', 'Japan Airlines'),
+                   ('DL', 'Delta Air Lines'),
+                   ('AA', 'American Airlines'),
+                   ('UA', 'United Airlines'),
+                   ('CA', 'Air China'),
+                   ('MU', 'China Eastern Airlines'),
+                   ('CZ', 'China Southern Airlines'),
+                   ('SA', 'South African Airways'),
+                   ('LATAM', 'LATAM Airlines Group'),
+                   ('TP', 'TAP Air Portugal'),
+                   ('LX', 'Swiss International Air Lines'),
+                   ('AS', 'Alaska Airlines'),
+                   ('HA', 'Hawaiian Airlines'),
+                   ('B6', 'JetBlue Airways'),
+                   ('F9', 'Frontier Airlines'),
+                   ('NK', 'Spirit Airlines'),
+                   ('G3', 'Gol Transportes Aéreos'),
+                   ('CM', 'Copa Airlines'),
+                   ('AV', 'Avianca'),
+                   ('LA', 'LATAM Airlines'),
+                   ('CU', 'Cubana de Aviación');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
