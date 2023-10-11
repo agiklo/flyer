@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
+import pl.matcodem.trackingservice.constants.TripQueries;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -20,17 +22,9 @@ import static java.util.stream.Collectors.toSet;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Trip.getTripsByDepartureIcaoCode",
-        query = "SELECT t FROM Trip t WHERE t.departureAirport.icaoCode =:code")
-@NamedQuery(name = "Trip.getTripsByArrivalIcaoCode",
-        query = "SELECT t FROM Trip t WHERE t.arrivalAirport.icaoCode =:code")
-@NamedQuery(name = "Trip.getTripsByIcaoCodesAndDepatureDate",
-        query = """
-                SELECT t FROM Trip t WHERE
-                t.arrivalAirport.icaoCode =:arrivalCode AND
-                t.departureAirport.icaoCode =:departureCode AND
-                t.departureDateTime =: date
-                """)
+@NamedQuery(name = TripQueries.GET_TRIPS_BY_DEPARTURE_ICAO_CODE, query = TripQueries.SQL_GET_TRIPS_BY_DEPARTURE_ICAO_CODE)
+@NamedQuery(name = TripQueries.GET_TRIPS_BY_ARRIVAL_ICAO_CODE, query = TripQueries.SQL_GET_TRIPS_BY_ARRIVAL_ICAO_CODE)
+@NamedQuery(name = TripQueries.GET_TRIPS_BY_ICAO_CODES_AND_DEPARTURE_DATE, query = TripQueries.SQL_GET_TRIPS_BY_ICAO_CODES_AND_DEPARTURE_DATE)
 public class Trip {
 
     @Id

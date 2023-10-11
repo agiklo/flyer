@@ -2,6 +2,7 @@ package pl.matcodem.trackingservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.matcodem.trackingservice.entity.Airport;
 import pl.matcodem.trackingservice.entity.Flight;
 import pl.matcodem.trackingservice.entity.Trip;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class TripFinderService {
 

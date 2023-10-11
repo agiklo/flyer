@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.domain.AbstractAggregateRoot;
+import pl.matcodem.trackingservice.constants.FlightQueries;
 import pl.matcodem.trackingservice.events.FlightDelayEvent;
 
 import java.time.Duration;
@@ -21,24 +22,10 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQuery(name = "Flight.findFlightsByDepartureAndArrivalAirports",
-        query = """
-                SELECT f FROM Flight f WHERE
-                f.arrivalAirport.icaoCode =:arrivalIcao
-                AND
-                f.departureAirport.icaoCode =:departureIcao
-                """)
-@NamedQuery(name = "Flight.findFlightsByDepartureIcaoCodeAndDateTimeAfter",
-        query = """
-                SELECT f FROM Flight f WHERE
-                f.departureAirport.icaoCode =:departureIcao
-                AND
-                f.departureDateTime >= :date
-                """)
-@NamedQuery(name = "Flight.findFlightsByArrivalAirport",
-        query = "SELECT f FROM Flight f WHERE f.arrivalAirport.icaoCode =:arrivalIcao")
-@NamedQuery(name = "Flight.findFlightsByDepartureAirport",
-        query = "SELECT f FROM Flight f WHERE f.departureAirport.icaoCode =:departureIcao")
+@NamedQuery(name = FlightQueries.FIND_FLIGHTS_BY_DEPARTURE_AND_ARRIVAL_AIRPORTS, query = FlightQueries.SQL_FIND_FLIGHTS_BY_DEPARTURE_AND_ARRIVAL_AIRPORTS)
+@NamedQuery(name = FlightQueries.FIND_FLIGHTS_BY_DEPARTURE_ICAO_AND_DATE_TIME_AFTER, query = FlightQueries.SQL_FIND_FLIGHTS_BY_DEPARTURE_ICAO_AND_DATE_TIME_AFTER)
+@NamedQuery(name = FlightQueries.FIND_FLIGHTS_BY_ARRIVAL_AIRPORT, query = FlightQueries.SQL_FIND_FLIGHTS_BY_ARRIVAL_AIRPORT)
+@NamedQuery(name = FlightQueries.FIND_FLIGHTS_BY_DEPARTURE_AIRPORT, query = FlightQueries.SQL_FIND_FLIGHTS_BY_DEPARTURE_AIRPORT)
 public class Flight extends AbstractAggregateRoot<Flight> {
 
     /**

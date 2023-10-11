@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.mapper.TripMapper;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OnewayTripService {
 

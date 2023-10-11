@@ -2,6 +2,7 @@ package pl.matcodem.trackingservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.mapper.TripMapper;
 import pl.matcodem.trackingservice.request.RoundTripRequest;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RoundtripService {
 
