@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
-import pl.matcodem.trackingservice.request.RoundtripRequest;
-import pl.matcodem.trackingservice.response.RoundtripResponse;
+import pl.matcodem.trackingservice.request.RoundTripRequest;
+import pl.matcodem.trackingservice.response.RoundTripResponse;
 import pl.matcodem.trackingservice.response.TripResponse;
 import pl.matcodem.trackingservice.service.OnewayTripService;
 import pl.matcodem.trackingservice.service.RoundtripService;
@@ -21,13 +21,13 @@ public class TripRestController {
     private final OnewayTripService onewayTripService;
     private final RoundtripService roundtripService;
 
-    @GetMapping
+    @GetMapping("/oneway-trip")
     public Page<TripResponse> findOnewayTripByDestinationAndDate(@RequestBody OnewayTripRequest request) {
         return onewayTripService.findOnewayTrips(request);
     }
 
-    @GetMapping
-    public RoundtripResponse findRoundtripByDestinationAndDate(@RequestBody RoundtripRequest request) {
-        return roundtripService.findRoundtrips(request);
+    @GetMapping("/round-trip")
+    public RoundTripResponse findRoundTripByDestinationAndDate(@RequestBody RoundTripRequest request) {
+        return roundtripService.findRoundTrips(request);
     }
 }

@@ -7,7 +7,7 @@ import pl.matcodem.trackingservice.enums.Currency;
 import java.time.LocalDate;
 
 @Builder
-public record RoundtripRequest(
+public record RoundTripRequest(
         String departureAirportCode,
         String arrivalAirportCode,
         LocalDate departureDate,

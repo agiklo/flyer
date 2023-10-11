@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.mapper.TripMapper;
-import pl.matcodem.trackingservice.request.RoundtripRequest;
-import pl.matcodem.trackingservice.response.RoundtripResponse;
+import pl.matcodem.trackingservice.request.RoundTripRequest;
+import pl.matcodem.trackingservice.response.RoundTripResponse;
 import pl.matcodem.trackingservice.response.TripResponse;
 
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public class RoundtripService {
      * @param request The roundtrip request specifying departure, arrival, dates, and maximum stopovers.
      * @return A roundtrip response containing first and second leg trip options.
      */
-    public RoundtripResponse findRoundtrips(RoundtripRequest request) {
+    public RoundTripResponse findRoundTrips(RoundTripRequest request) {
         String departureIcaoCode = request.departureAirportCode();
         String arrivalIcaoCode = request.arrivalAirportCode();
         LocalDate departureDate = request.departureDate();
@@ -35,7 +35,7 @@ public class RoundtripService {
         List<TripResponse> firstWayTrips = findTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
         List<TripResponse> secondWayTrips = findTrips(arrivalIcaoCode, departureIcaoCode, returnDate, maxStopovers);
 
-        return RoundtripResponse.builder()
+        return RoundTripResponse.builder()
                 .firstTrips(firstWayTrips)
                 .secondTrips(secondWayTrips)
                 .build();

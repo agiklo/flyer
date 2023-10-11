@@ -5,6 +5,6 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record RoundtripResponse(List<TripResponse> firstTrips,
+public record RoundTripResponse(List<TripResponse> firstTrips,
                                 List<TripResponse> secondTrips) {
 }
