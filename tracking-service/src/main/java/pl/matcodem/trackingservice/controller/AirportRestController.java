@@ -4,10 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.matcodem.trackingservice.request.AirportDistanceRequest;
+import pl.matcodem.trackingservice.response.AirportDistanceResponse;
 import pl.matcodem.trackingservice.response.AirportResponse;
 import pl.matcodem.trackingservice.service.AirportService;
 
@@ -57,5 +60,23 @@ public class AirportRestController {
     public AirportResponse getAirportByIcaoCode(@PathVariable("icaoCode") String icaoCode) {
         return airportService.getAirportByIcaoCode(icaoCode);
     }
+
+    /**
+     * Calculate the distance between two airports based on their ICAO codes.
+     *
+     * @param request The request containing the ICAO codes of the origin and destination airports.
+     * @return An {@link AirportDistanceResponse} containing the distance between the airports.
+     */
+    @ApiOperation(value = "Calculate distance between airports")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Distance calculated successfully"),
+            @ApiResponse(code = 404, message = "One or both airports not found")
+    })
+    @PostMapping("/distance")
+    public AirportDistanceResponse getDistanceBetweenAirports(
+            @Valid @RequestBody AirportDistanceRequest request) {
+        return airportService.getDistanceBetweenAirports(request);
+    }
+
 }
 

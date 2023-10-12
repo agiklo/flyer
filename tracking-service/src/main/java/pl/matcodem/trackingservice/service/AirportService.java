@@ -9,6 +9,8 @@ import pl.matcodem.trackingservice.entity.Airport;
 import pl.matcodem.trackingservice.exceptions.AirportNotFoundException;
 import pl.matcodem.trackingservice.mapper.AirportMapper;
 import pl.matcodem.trackingservice.repository.AirportRepository;
+import pl.matcodem.trackingservice.request.AirportDistanceRequest;
+import pl.matcodem.trackingservice.response.AirportDistanceResponse;
 import pl.matcodem.trackingservice.response.AirportResponse;
 
 import java.util.Optional;
@@ -21,6 +23,7 @@ public class AirportService {
 
     private final AirportRepository airportRepository;
     private final AirportMapper airportMapper;
+    private final AirportDistanceCalculatorService airportDistanceCalculatorService;
 
     /**
      * Get a paginated list of airports.
@@ -55,4 +58,25 @@ public class AirportService {
         return new AirportResponse(airport.get());
     }
 
+    /**
+     * Calculate the distance between two airports based on their ICAO codes.
+     *
+     * @param request The request containing the ICAO codes of the origin and destination airports.
+     * @return An {@link AirportDistanceResponse} containing the distance between the airports.
+     * @throws AirportNotFoundException if one or both of the specified airports are not found.
+     */
+    public AirportDistanceResponse getDistanceBetweenAirports(AirportDistanceRequest request) {
+        Optional<Airport> originAirport = airportRepository.getAirportByIcaoCode(request.originIcaoCode());
+        Optional<Airport> destinationAirport = airportRepository.getAirportByIcaoCode(request.destinationIcaoCode());
+
+        if (originAirport.isEmpty() || destinationAirport.isEmpty()) {
+            throw new AirportNotFoundException("One or both airports not found");
+        }
+
+        double distance = airportDistanceCalculatorService.calculateDistance(
+                originAirport.get(), destinationAirport.get());
+
+        return new AirportDistanceResponse(
+                request.originIcaoCode(), request.destinationIcaoCode(), distance);
+    }
 }
