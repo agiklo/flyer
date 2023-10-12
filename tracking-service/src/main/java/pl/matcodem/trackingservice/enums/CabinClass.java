@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public enum CabinClass {
     BUSINESS("Business Class", 2, true, true, new BigDecimal("5000.00")),
     ECONOMY("Economy Class", 3, false, false, new BigDecimal("1000.00")),
-    FIRST_CLASS("First Class", 1, true, true, new BigDecimal("10000.00"));
+    FIRST("First Class", 1, true, true, new BigDecimal("10000.00"));
 
     private final String displayName;
     private final int numberOfSeatsPerRow;
@@ -114,7 +114,7 @@ public enum CabinClass {
      * @return True if it's luxurious (Business or First Class), false otherwise.
      */
     public boolean isLuxurious() {
-        return this == BUSINESS || this == FIRST_CLASS;
+        return this == BUSINESS || this == FIRST;
     }
 
     /**

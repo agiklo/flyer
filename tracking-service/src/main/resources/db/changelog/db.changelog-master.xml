@@ -7,4 +7,5 @@
 
     <include file="/db/changelog/airlines/changelog-airlines.xml"/>
     <include file="/db/changelog/aircrafts/changelog-aircrafts.xml"/>
+<!--    <include file="/db/changelog/aircrafts/changelog-aircrafts-init-data.xml"/>-->
 </databaseChangeLog>

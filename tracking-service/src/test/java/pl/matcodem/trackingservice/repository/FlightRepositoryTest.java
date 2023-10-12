@@ -59,7 +59,7 @@ class FlightRepositoryTest {
         Airline airline = new Airline("117", "Scandinavian Airlines System (SAS)");
         airlineRepository.saveAndFlush(airline);
 
-        Aircraft aircraft = new Aircraft("A319_3", 110, 90, 0, "Airbus A319", true, Set.of(ECONOMY));
+        Aircraft aircraft = new Aircraft("A319_3", 110, 0, "Airbus A319", true, Set.of(ECONOMY));
         aircraftRepository.saveAndFlush(aircraft);
 
         LocalDateTime departureDateTime = LocalDateTime.of(2023, 10, 4, 13, 35);

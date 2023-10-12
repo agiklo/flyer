@@ -44,7 +44,7 @@ class AirportRepositoryTest {
 
     @Test
     void shouldReturnAirportByIcaoCode() {
-        Airport airport = airportRepository.getAirportByIcaoCode("EKCH");
+        Airport airport = airportRepository.getAirportByIcaoCode("EKCH").get();
         assertThat(airport).isNotNull();
         assertThat(airport.getCountry()).isEqualTo("Denmark");
         assertThat(airport.getName()).isEqualTo("Copenhagen Airport");

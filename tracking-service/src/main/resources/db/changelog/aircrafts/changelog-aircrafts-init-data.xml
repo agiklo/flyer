@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet author="mmilewczyk" id="insert-aircrafts-data">
+        <sql>
+            INSERT INTO aircrafts (callSign, seatingCapacity, luxurySeats, model, isNewAircraft, classes)
+            VALUES
+                ('A380', 853, 87, 'Airbus A380', true, 'FIRST, BUSINESS, ECONOMY'),
+                ('B747', 524, 74, 'Boeing 747', true, 'FIRST, BUSINESS, ECONOMY'),
+                ('B787', 335, 30, 'Boeing 787', true, 'BUSINESS, ECONOMY'),
+                ('A350', 440, 40, 'Airbus A350', true, 'BUSINESS, ECONOMY'),
+                ('E190', 114, 16, 'Embraer E190', true, 'ECONOMY'),
+                ('MD-80', 172, 14, 'McDonnell Douglas MD-80', false, 'ECONOMY'),
+                ('B737', 126, 8, 'Boeing 737', true, 'ECONOMY'),
+                ('A321', 240, 24, 'Airbus A321', true, 'BUSINESS, ECONOMY'),
+                ('A330', 277, 28, 'Airbus A330', true, 'FIRST, BUSINESS, ECONOMY'),
+                ('B777', 346, 44, 'Boeing 777', true, 'FIRST, BUSINESS, ECONOMY'),
+                ('B757', 200, 10, 'Boeing 757', true, 'ECONOMY'),
+                ('CRJ200', 50, 5, 'Bombardier CRJ200', false, 'ECONOMY'),
+                ('A220', 135, 15, 'Airbus A220', true, 'BUSINESS, ECONOMY'),
+                ('ERJ145', 50, 5, 'Embraer ERJ145', false, 'ECONOMY'),
+                ('DC-9', 110, 10, 'Douglas DC-9', false, 'ECONOMY'),
+                ('B717', 117, 9, 'Boeing 717', true, 'ECONOMY'),
+                ('B787-10', 330, 32, 'Boeing 787-10', true, 'BUSINESS, ECONOMY'),
+                ('A340', 335, 34, 'Airbus A340', false, 'BUSINESS, ECONOMY'),
+                ('B737 MAX', 200, 8, 'Boeing 737 MAX', true, 'ECONOMY'),
+                ('A380-800', 555, 87, 'Airbus A380-800', true, 'FIRST, BUSINESS, ECONOMY');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
