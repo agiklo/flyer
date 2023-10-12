@@ -11,7 +11,6 @@ import pl.matcodem.trackingservice.mapper.AirportMapper;
 import pl.matcodem.trackingservice.repository.AirportRepository;
 import pl.matcodem.trackingservice.response.AirportResponse;
 
-import java.util.List;
 import java.util.Optional;
 
 import static pl.matcodem.trackingservice.validator.IcaoCodeValidator.isValidIcaoCode;
