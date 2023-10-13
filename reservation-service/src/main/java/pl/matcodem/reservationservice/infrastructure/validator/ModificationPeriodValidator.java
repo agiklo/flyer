@@ -2,15 +2,15 @@ package pl.matcodem.reservationservice.infrastructure.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import pl.matcodem.reservationservice.domain.model.Reservation;
 import pl.matcodem.reservationservice.exceptions.ReservationModificationNotAllowedException;
 import pl.matcodem.reservationservice.util.DateCalculator;
+import pl.matcodem.reservationservice.util.annotations.Validator;
 
 import java.time.LocalDate;
 import java.time.Period;
 
-@Service
+@Validator
 public class ModificationPeriodValidator {
     private final DateCalculator dateCalculator;
     private final int allowedDays;

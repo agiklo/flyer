@@ -1,14 +1,14 @@
 package pl.matcodem.reservationservice.infrastructure.validator;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import pl.matcodem.reservationservice.domain.model.valueobjects.FlightReservationStatus;
+import pl.matcodem.reservationservice.util.annotations.Validator;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Service
+@Validator
 public class DeletableStatusValidator {
     private final Set<FlightReservationStatus> deletableStatusValues;
 
