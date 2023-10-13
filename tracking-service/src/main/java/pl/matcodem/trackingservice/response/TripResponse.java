@@ -30,5 +30,6 @@ public record TripResponse(Long tripId,
                            Boolean newAircraft,
                            Boolean oldAircraft,
                            Boolean highlyRatedCarrier,
-                           Double score) {
+                           Double score,
+                           Double co2EmissionPerPerson) {
 }

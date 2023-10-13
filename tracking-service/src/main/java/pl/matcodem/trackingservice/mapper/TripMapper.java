@@ -1,20 +1,28 @@
 package pl.matcodem.trackingservice.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.matcodem.trackingservice.entity.Flight;
 import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.response.Leg;
 import pl.matcodem.trackingservice.response.TripResponse;
+import pl.matcodem.trackingservice.service.CO2EmissionsService;
 
 import static java.util.stream.Collectors.toSet;
 
 @Component
+@RequiredArgsConstructor
 public class TripMapper {
+
+    private final CO2EmissionsService co2EmissionsService;
 
     public TripResponse mapTripToTripResponse(Trip trip) {
         var legs = trip.getFlights().stream()
                 .map(this::mapFlightToLegResponse)
                 .collect(toSet());
+
+        double co2EmissionPerPerson = co2EmissionsService.calculateCO2Emission(trip, 1);
+
         return TripResponse.builder()
                 .tripId(trip.getTripId())
                 .departureTime(trip.getDepartureTime())
@@ -40,6 +48,7 @@ public class TripMapper {
                 .oldAircraft(trip.containsOldAircraft())
                 .highlyRatedCarrier(trip.getHighlyRatedCarrier())
                 .score(trip.getScore())
+                .co2EmissionPerPerson(co2EmissionPerPerson)
                 .build();
     }
 
