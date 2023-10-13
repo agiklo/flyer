@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
 import pl.matcodem.trackingservice.response.TripResponse;
 import pl.matcodem.trackingservice.service.OnewayTripService;
+import pl.matcodem.trackingservice.strategy.sorting.SortStrategy;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class TripGraphQlController {
     private final OnewayTripService onewayTripService;
 
     @QueryMapping(name = "findTripByDestinationAndDate")
-    public Page<TripResponse> findTripByDestinationAndDate(@Argument OnewayTripRequest request) {
-        return onewayTripService.findOnewayTrips(request);
+    public Page<TripResponse> findTripByDestinationAndDate(@Argument OnewayTripRequest request, SortStrategy sortBy) {
+        return onewayTripService.findOnewayTrips(request, sortBy);
     }
 }

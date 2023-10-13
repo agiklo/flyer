@@ -9,9 +9,10 @@ import pl.matcodem.trackingservice.entity.Trip;
 import pl.matcodem.trackingservice.mapper.TripMapper;
 import pl.matcodem.trackingservice.request.OnewayTripRequest;
 import pl.matcodem.trackingservice.response.TripResponse;
+import pl.matcodem.trackingservice.strategy.sorting.SortStrategy;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,20 +28,21 @@ public class OnewayTripService {
      * @param request The request specifying departure, arrival, date, and maximum stopovers.
      * @return A page of one-way trip responses.
      */
-    public Page<TripResponse> findOnewayTrips(OnewayTripRequest request) {
+    public Page<TripResponse> findOnewayTrips(OnewayTripRequest request, SortStrategy sortBy) {
         String departureIcaoCode = request.departureAirportCode();
         String arrivalIcaoCode = request.arrivalAirportCode();
         LocalDate departureDate = request.departureDate();
         int maxStopovers = request.maxStopovers();
 
-        List<TripResponse> possibleTrips = findTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
+        List<TripResponse> possibleTrips = findTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers, sortBy);
         return new PageImpl<>(possibleTrips);
     }
 
-    private List<TripResponse> findTrips(String departureIcaoCode, String arrivalIcaoCode, LocalDate departureDate, int maxStopovers) {
+    private List<TripResponse> findTrips(String departureIcaoCode, String arrivalIcaoCode, LocalDate departureDate, int maxStopovers, SortStrategy sortBy) {
         List<Trip> possibleTrips = tripFinder.findPossibleTrips(departureIcaoCode, arrivalIcaoCode, departureDate, maxStopovers);
-        return possibleTrips.stream()
-                .sorted(Comparator.comparingInt(Trip::getDurationMinutes))
+        var sortStrategy = SortStrategy.getSortStrategy(sortBy);
+        List<Trip> sortedTrips = sortStrategy.sort(possibleTrips);
+        return sortedTrips.stream()
                 .map(tripMapper::mapTripToTripResponse)
                 .toList();
     }
