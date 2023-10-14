@@ -16,7 +16,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     public FlightResponse getFlightInfo(FlightNumber flightNumber) {
-        var responseEntity = restTemplate.getForEntity("http://tracking-service/api/flights/{flightNumber}", FlightResponse.class, flightNumber.number());
+        var responseEntity = restTemplate.getForEntity("http://tracking-service/flights/by-designator-code/{flightNumber}", FlightResponse.class, flightNumber.number());
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity.getBody();
         }
