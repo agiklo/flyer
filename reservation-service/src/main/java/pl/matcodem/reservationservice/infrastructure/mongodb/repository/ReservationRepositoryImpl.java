@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationMongoRepositoryImpl implements ReservationRepository {
+public class ReservationRepositoryImpl implements ReservationRepository {
 
     private final ReservationMongoRepository repository;
 
