@@ -1,9 +1,12 @@
 package pl.matcodem.trackingservice.service;
 
+import org.springframework.cache.annotation.Cacheable;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +27,7 @@ import static pl.matcodem.trackingservice.validator.IcaoCodeValidator.isValidIca
  * Service class for handling flight-related operations.
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class FlightService {
 
@@ -168,6 +172,8 @@ public class FlightService {
      * @throws IllegalArgumentException if the designator code is null or empty.
      * @throws FlightNotFoundException  if no flight with the given designator code is found.
      */
+    @Cacheable("flightCache")
+    @CircuitBreaker(name = "findFlightByDesignatorCode", fallbackMethod = "fallbackMethod")
     public FlightResponse findFlightByDesignatorCode(@NotBlank String designatorCode) {
         if (designatorCode == null) {
             throw new IllegalArgumentException("Flight designator code must not be null.");
@@ -175,5 +181,10 @@ public class FlightService {
         return flightRepository.findById(designatorCode)
                 .map(FlightResponse::new)
                 .orElseThrow(() -> new FlightNotFoundException("Flight with designator code " + designatorCode + " not found"));
+    }
+
+    public FlightResponse fallbackMethod(String designatorCode, Throwable throwable) {
+        log.error("Circuit is open for designator code: " + designatorCode, throwable);
+        return new FlightResponse();
     }
 }

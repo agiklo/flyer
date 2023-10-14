@@ -1,6 +1,7 @@
 package pl.matcodem.trackingservice.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.matcodem.trackingservice.entity.Flight;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class FlightResponse {
     private String designatorCode;
     private String departureAirport;
