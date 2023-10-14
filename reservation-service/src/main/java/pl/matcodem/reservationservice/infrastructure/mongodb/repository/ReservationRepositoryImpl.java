@@ -3,6 +3,8 @@ package pl.matcodem.reservationservice.infrastructure.mongodb.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.matcodem.reservationservice.domain.model.Reservation;
+import pl.matcodem.reservationservice.domain.model.valueobjects.FlightReservationStatus;
+import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationDate;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 import pl.matcodem.reservationservice.domain.repository.ReservationRepository;
 import pl.matcodem.reservationservice.infrastructure.mongodb.entity.ReservationEntity;
@@ -45,5 +47,13 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     public void delete(Reservation reservation) {
         ReservationEntity reservationEntity = ReservationEntity.fromReservation(reservation);
         repository.delete(reservationEntity);
+    }
+
+    @Override
+    public List<Reservation> getReservationsByStatusAndDate(FlightReservationStatus status, ReservationDate date) {
+        List<ReservationEntity> reservationEntities = repository.getReservationEntitiesByStatusAndReservationDate(status, date.date());
+        return reservationEntities.stream()
+                .map(ReservationEntity::toReservation)
+                .toList();
     }
 }

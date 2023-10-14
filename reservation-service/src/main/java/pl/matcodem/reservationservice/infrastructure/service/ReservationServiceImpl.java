@@ -60,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
         kafkaEventProducer.sendEvent(KafkaTopics.RESERVATION_CREATED.getTopicName(), event);
 
         ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
-        return helper.buildReservationResponse(reservationDate, passenger, flightInfo);
+        return helper.buildReservationResponse(savedReservation.getId(), reservationDate, passenger, flightInfo);
     }
 
     @Override
@@ -81,18 +81,24 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
 
         ReservationDate reservationDate = updatedReservation.getReservationDate();
-        return helper.buildReservationResponse(reservationDate, newPassenger, flightInfo);
+        return helper.buildReservationResponse(updatedReservation.getId(), reservationDate, newPassenger, flightInfo);
     }
 
 
     @Override
-    public Optional<ReservationResponse> getReservationById(ReservationId reservationId) {
+    public Optional<ReservationResponse> getReservationResponseById(ReservationId reservationId) {
         return repository.findById(reservationId)
                 .map(reservation -> helper.buildReservationResponse(
+                        reservationId,
                         reservation.getReservationDate(),
                         reservation.getPassenger(),
                         helper.getFlightInfo(reservation.getFlightNumber())
                 ));
+    }
+
+    @Override
+    public Optional<Reservation> getReservationById(ReservationId reservationId) {
+        return repository.findById(reservationId);
     }
 
     @Override
@@ -101,6 +107,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         return allReservations.stream()
                 .map(reservation -> helper.buildReservationResponse(
+                        reservation.getId(),
                         reservation.getReservationDate(),
                         reservation.getPassenger(),
                         helper.getFlightInfo(reservation.getFlightNumber())
@@ -119,6 +126,19 @@ public class ReservationServiceImpl implements ReservationService {
         } else {
             throw new ReservationNotFoundException(RESERVATION_NOT_FOUND);
         }
+    }
+
+    @Override
+    public List<ReservationResponse> getReservationsByStatusAndDate(FlightReservationStatus status, ReservationDate date) {
+        List<Reservation> reservations = repository.getReservationsByStatusAndDate(status, date);
+        return reservations.stream()
+                .map(reservation -> helper.buildReservationResponse(
+                        reservation.getId(),
+                        reservation.getReservationDate(),
+                        reservation.getPassenger(),
+                        helper.getFlightInfo(reservation.getFlightNumber())
+                ))
+                .toList();
     }
 
     @Override

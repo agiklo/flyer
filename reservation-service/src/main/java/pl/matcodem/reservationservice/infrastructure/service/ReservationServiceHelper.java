@@ -6,6 +6,7 @@ import pl.matcodem.reservationservice.application.response.ReservationResponse;
 import pl.matcodem.reservationservice.domain.model.valueobjects.FlightNumber;
 import pl.matcodem.reservationservice.domain.model.valueobjects.Passenger;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationDate;
+import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 import pl.matcodem.reservationservice.infrastructure.flight.FlightResponse;
 import pl.matcodem.reservationservice.infrastructure.flight.FlightService;
 import pl.matcodem.reservationservice.infrastructure.mapper.FlightResponseMapper;
@@ -30,8 +31,8 @@ public class ReservationServiceHelper {
     }
 
     ReservationResponse buildReservationResponse(
-            ReservationDate reservationDate, Passenger passenger, ReservationResponse.FlightInfo flightInfo
+            ReservationId reservationId, ReservationDate reservationDate, Passenger passenger, ReservationResponse.FlightInfo flightInfo
     ) {
-        return responseBuilder.build(reservationDate, passenger, flightInfo);
+        return responseBuilder.build(reservationId, reservationDate, passenger, flightInfo);
     }
 }

@@ -2,6 +2,8 @@ package pl.matcodem.reservationservice.domain.repository;
 
 
 import pl.matcodem.reservationservice.domain.model.Reservation;
+import pl.matcodem.reservationservice.domain.model.valueobjects.FlightReservationStatus;
+import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationDate;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 
 import java.util.List;
@@ -15,5 +17,7 @@ public interface ReservationRepository {
     Reservation save(Reservation reservation);
 
     void delete(Reservation reservation);
+
+    List<Reservation> getReservationsByStatusAndDate(FlightReservationStatus status, ReservationDate date);
 }
 
