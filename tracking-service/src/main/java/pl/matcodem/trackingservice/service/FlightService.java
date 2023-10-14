@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.matcodem.trackingservice.entity.Flight;
 import pl.matcodem.trackingservice.exceptions.FlightNotFoundException;
 import pl.matcodem.trackingservice.repository.FlightRepository;
+import pl.matcodem.trackingservice.response.FlightResponse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,9 +41,9 @@ public class FlightService {
      * @param size Number of items per page (default is 10).
      * @return A page of Flight entities.
      */
-    public Page<Flight> getAllFlights(@Min(0) int page, @Min(1) int size) {
+    public Page<FlightResponse> getAllFlights(@Min(0) int page, @Min(1) int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(DEPARTURE_DATE_TIME));
-        return flightRepository.findAll(pageable);
+        return flightRepository.findAll(pageable).map(FlightResponse::new);
     }
 
     /**
@@ -55,13 +56,14 @@ public class FlightService {
      * @return A page of Flight entities matching the criteria.
      * @throws IllegalArgumentException if the departure ICAO code is null or empty.
      */
-    public Page<Flight> getAllFlightsByDepartureIcao(String departureIcao, @NotNull LocalDateTime date, @Min(0) int page, @Min(1) int size) {
+    public Page<FlightResponse> getAllFlightsByDepartureIcao(String departureIcao, @NotNull LocalDateTime date, @Min(0) int page, @Min(1) int size) {
         if (!isValidIcaoCode(departureIcao)) {
             throw new IllegalArgumentException(ICAO_CODE_MUST_NOT_BE_NULL_OR_EMPTY);
         }
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(DEPARTURE_DATE_TIME));
-        return flightRepository.findFlightsByDepartureIcaoCodeAndDateTimeAfter(departureIcao, date, pageable);
+        return flightRepository.findFlightsByDepartureIcaoCodeAndDateTimeAfter(departureIcao, date, pageable)
+                .map(FlightResponse::new);
     }
 
     /**
@@ -92,7 +94,7 @@ public class FlightService {
      * @throws IllegalArgumentException if the departure or arrival ICAO codes are null or empty.
      * @throws FlightNotFoundException  if an error occurs while searching for flights.
      */
-    public Page<Flight> findFlightsByDepartureAndArrivalAirportsAndDate(
+    public Page<FlightResponse> findFlightsByDepartureAndArrivalAirportsAndDate(
             String departureIcao, String arrivalIcao, @NotNull LocalDateTime departureDate, @Min(0) int page, @Min(1) int size) {
         try {
             if (!isValidIcaoCode(departureIcao) || !isValidIcaoCode(arrivalIcao)) {
@@ -100,7 +102,8 @@ public class FlightService {
             }
             Pageable pageable = PageRequest.of(page, size, Sort.by(DEPARTURE_DATE_TIME));
             return flightRepository.findFlightsByDepartureAndArrivalAirportsAndDate(
-                    departureIcao, arrivalIcao, departureDate, pageable);
+                            departureIcao, arrivalIcao, departureDate, pageable)
+                    .map(FlightResponse::new);
         } catch (Exception e) {
             throw new FlightNotFoundException(ERROR_OCCURRED_WHILE_SEARCHING_FOR_FLIGHTS, e);
         }
@@ -119,7 +122,7 @@ public class FlightService {
      *                                  <p>
      *                                  flights.
      */
-    public Page<Flight> findFlightsByDepartureAndArrivalAirports(
+    public Page<FlightResponse> findFlightsByDepartureAndArrivalAirports(
             String departureIcao, String arrivalIcao, @Min(0) int page, @Min(1) int size) {
         try {
             if (!isValidIcaoCode(departureIcao) || !isValidIcaoCode(arrivalIcao)) {
@@ -127,7 +130,8 @@ public class FlightService {
             }
             Pageable pageable = PageRequest.of(page, size, Sort.by(DEPARTURE_DATE_TIME));
             return flightRepository.findFlightsByDepartureAndArrivalAirports(
-                    departureIcao, arrivalIcao, pageable);
+                            departureIcao, arrivalIcao, pageable)
+                    .map(FlightResponse::new);
         } catch (Exception e) {
             throw new FlightNotFoundException(ERROR_OCCURRED_WHILE_SEARCHING_FOR_FLIGHTS, e);
         }
@@ -143,13 +147,14 @@ public class FlightService {
      * @throws IllegalArgumentException if the arrival ICAO code is null or empty.
      * @throws FlightNotFoundException  if an error occurs while searching for flights.
      */
-    public Page<Flight> findFlightsByArrivalAirport(String arrivalIcao, @Min(0) int page, @Min(1) int size) {
+    public Page<FlightResponse> findFlightsByArrivalAirport(String arrivalIcao, @Min(0) int page, @Min(1) int size) {
         try {
             if (!isValidIcaoCode(arrivalIcao)) {
                 throw new IllegalArgumentException(ICAO_CODE_MUST_NOT_BE_NULL_OR_EMPTY);
             }
             Pageable pageable = PageRequest.of(page, size, Sort.by(DEPARTURE_DATE_TIME));
-            return flightRepository.findFlightsByArrivalAirport(arrivalIcao, pageable);
+            return flightRepository.findFlightsByArrivalAirport(arrivalIcao, pageable)
+                    .map(FlightResponse::new);
         } catch (Exception e) {
             throw new FlightNotFoundException(ERROR_OCCURRED_WHILE_SEARCHING_FOR_FLIGHTS, e);
         }
@@ -160,14 +165,15 @@ public class FlightService {
      *
      * @param designatorCode The designator code of the flight to retrieve (not null or empty).
      * @return The Flight entity matching the designator code.
-     * @throws IllegalArgumentException     if the designator code is null or empty.
-     * @throws FlightNotFoundException       if no flight with the given designator code is found.
+     * @throws IllegalArgumentException if the designator code is null or empty.
+     * @throws FlightNotFoundException  if no flight with the given designator code is found.
      */
-    public Flight findFlightByDesignatorCode(@NotBlank String designatorCode) {
+    public FlightResponse findFlightByDesignatorCode(@NotBlank String designatorCode) {
         if (designatorCode == null) {
             throw new IllegalArgumentException("Flight designator code must not be null.");
         }
         return flightRepository.findById(designatorCode)
+                .map(FlightResponse::new)
                 .orElseThrow(() -> new FlightNotFoundException("Flight with designator code " + designatorCode + " not found"));
     }
 }

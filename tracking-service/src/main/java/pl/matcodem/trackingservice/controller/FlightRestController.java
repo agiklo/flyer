@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import pl.matcodem.trackingservice.entity.Flight;
+import pl.matcodem.trackingservice.response.FlightResponse;
 import pl.matcodem.trackingservice.service.FlightService;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class FlightRestController {
      * @return A page of Flight entities.
      */
     @GetMapping
-    public Page<Flight> getAllFlights(
+    public Page<FlightResponse> getAllFlights(
             @RequestParam(value = "page", defaultValue = "0") @Valid int page,
             @RequestParam(value = "size", defaultValue = "10") @Valid int size) {
         return flightService.getAllFlights(page, size);
@@ -42,7 +42,7 @@ public class FlightRestController {
      * @return A page of Flight entities matching the criteria.
      */
     @GetMapping("/by-departure-and-arrival-icao-and-date")
-    public Page<Flight> findFlightsByDepartureAndArrivalAirportsAndDate(
+    public Page<FlightResponse> findFlightsByDepartureAndArrivalAirportsAndDate(
             @RequestParam("departureIcao") String departureIcao,
             @RequestParam("arrivalIcao") String arrivalIcao,
             @RequestParam("date") @Valid LocalDateTime date,
@@ -61,7 +61,7 @@ public class FlightRestController {
      * @return A page of Flight entities matching the criteria.
      */
     @GetMapping("/by-departure-icao")
-    public Page<Flight> getAllFlightsByDepartureIcao(
+    public Page<FlightResponse> getAllFlightsByDepartureIcao(
             @RequestParam("departureIcao") String departureIcao,
             @RequestParam("date") @Valid LocalDateTime date,
             @RequestParam(value = "page", defaultValue = "0") @Valid int page,
@@ -79,7 +79,7 @@ public class FlightRestController {
      * @return A page of Flight entities matching the criteria.
      */
     @GetMapping("/by-departure-and-arrival-icao")
-    public Page<Flight> findFlightsByDepartureAndArrivalAirports(
+    public Page<FlightResponse> findFlightsByDepartureAndArrivalAirports(
             @RequestParam("departureIcao") String departureIcao,
             @RequestParam("arrivalIcao") String arrivalIcao,
             @RequestParam(value = "page", defaultValue = "0") @Valid int page,
@@ -96,7 +96,7 @@ public class FlightRestController {
      * @return A page of Flight entities matching the criteria.
      */
     @GetMapping("/by-arrival-icao")
-    public Page<Flight> findFlightsByArrivalAirport(
+    public Page<FlightResponse> findFlightsByArrivalAirport(
             @RequestParam("arrivalIcao") String arrivalIcao,
             @RequestParam(value = "page", defaultValue = "0") @Valid int page,
             @RequestParam(value = "size", defaultValue = "10") @Valid int size) {
@@ -111,7 +111,7 @@ public class FlightRestController {
      */
     @GetMapping("/by-designator-code/{designatorCode}")
     @ResponseStatus(HttpStatus.OK)
-    public Flight findFlightByDesignatorCode(@PathVariable("designatorCode") @Valid String designatorCode) {
+    public FlightResponse findFlightByDesignatorCode(@PathVariable("designatorCode") @Valid String designatorCode) {
         return flightService.findFlightByDesignatorCode(designatorCode);
     }
 }
