@@ -7,3 +7,11 @@ services:
       - 'POSTGRES_USER=Supervisor'
     ports:
       - '5432:5432'
+  mongodb:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB_DATABASE=reservation-service'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+      - 'MONGO_INITDB_ROOT_USERNAME=Supervisor'
+    ports:
+      - '27017:27017'
