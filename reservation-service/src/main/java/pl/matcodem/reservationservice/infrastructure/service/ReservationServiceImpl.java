@@ -2,6 +2,7 @@ package pl.matcodem.reservationservice.infrastructure.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.matcodem.reservationservice.application.events.ReservationCreatedEvent;
 import pl.matcodem.reservationservice.application.request.ReservationRequest;
 import pl.matcodem.reservationservice.application.request.UpdateReservationRequest;
 import pl.matcodem.reservationservice.application.response.ReservationResponse;
@@ -10,6 +11,8 @@ import pl.matcodem.reservationservice.domain.model.valueobjects.*;
 import pl.matcodem.reservationservice.domain.repository.ReservationRepository;
 import pl.matcodem.reservationservice.domain.service.ReservationService;
 import pl.matcodem.reservationservice.exceptions.ReservationNotFoundException;
+import pl.matcodem.reservationservice.infrastructure.kafka.KafkaEventProducer;
+import pl.matcodem.reservationservice.infrastructure.kafka.KafkaTopics;
 import pl.matcodem.reservationservice.infrastructure.validator.DeletableStatusValidator;
 import pl.matcodem.reservationservice.infrastructure.validator.ModificationPeriodValidator;
 
@@ -27,6 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationServiceHelper helper;
     private final DeletableStatusValidator deletableStatusValidator;
     private final ModificationPeriodValidator modificationPeriodValidator;
+    private final KafkaEventProducer kafkaEventProducer;
 
     @Override
     public ReservationResponse createReservation(ReservationRequest request) {
@@ -45,7 +49,15 @@ public class ReservationServiceImpl implements ReservationService {
                 flightNumber,
                 FlightReservationStatus.PENDING
         );
-        repository.save(reservation);
+        Reservation savedReservation = repository.save(reservation);
+
+        ReservationCreatedEvent event = new ReservationCreatedEvent(
+                savedReservation.getId().value(),
+                passenger.pesel(),
+                "Flight details: " + helper.getFlightInfo(flightNumber).toString()
+        );
+
+        kafkaEventProducer.sendEvent(KafkaTopics.RESERVATION_CREATED.getTopicName(), event);
 
         ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
         return helper.buildReservationResponse(reservationDate, passenger, flightInfo);
