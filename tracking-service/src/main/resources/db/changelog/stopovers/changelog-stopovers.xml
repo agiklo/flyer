@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
+
+    <changeSet id="createStopoversTable" author="mmilewczyk">
+        <createTable tableName="stopovers">
+            <column name="stopover_code" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="icao_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stopover_duration_minutes" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="addForeignKeyToAirport" author="mmilewczyk">
+        <addForeignKeyConstraint
+                baseTableName="stopovers"
+                baseColumnNames="icao_code"
+                constraintName="fk_airport_stopovers"
+                referencedTableName="airports"
+                referencedColumnNames="icao_code"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

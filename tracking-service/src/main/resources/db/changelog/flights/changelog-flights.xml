@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
+
+    <changeSet id="createFlightsTable" author="mmilewczyk">
+        <createTable tableName="flights">
+            <column name="designator_code" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="departure_icao_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="arrival_icao_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="airline_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="call_sign" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cabins" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="duration_minutes" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="departure_date_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stopover_code" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

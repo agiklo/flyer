@@ -8,10 +8,12 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import pl.matcodem.trackingservice.constants.FlightQueries;
+import pl.matcodem.trackingservice.enums.CabinClass;
 import pl.matcodem.trackingservice.events.FlightDelayEvent;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "flights")
@@ -73,7 +75,8 @@ public class Flight extends AbstractAggregateRoot<Flight> {
      * The cabin class of the flight.
      */
     @NotBlank
-    private String cabin;
+    @Enumerated(EnumType.STRING)
+    private Set<CabinClass> cabins;
 
     /**
      * The duration of the flight in minutes.

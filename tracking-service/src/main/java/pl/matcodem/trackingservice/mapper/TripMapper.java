@@ -59,7 +59,7 @@ public class TripMapper {
                 .departureAirportCode(flight.getDepartureAirport().getIcaoCode())
                 .arrivalAirportCode(flight.getArrivalAirport().getIcaoCode())
                 .airlineCode(flight.getAirline().getAirlineCode())
-                .cabin(flight.getCabin())
+                .cabins(flight.getCabins())
                 .designatorCode(flight.getDesignatorCode())
                 .departureDateTime(flight.getDepartureDateTime())
                 .arrivalDateTime(flight.getArrivalDateTime())

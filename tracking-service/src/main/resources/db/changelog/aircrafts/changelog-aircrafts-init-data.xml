@@ -7,7 +7,7 @@
 
     <changeSet author="mmilewczyk" id="insert-aircrafts-data">
         <sql>
-            INSERT INTO aircrafts (callSign, seatingCapacity, luxurySeats, model, isNewAircraft, classes)
+            INSERT INTO aircrafts (call_sign, seating_capacity, luxury_seats, model, is_new_aircraft, classes)
             VALUES
                 ('A380', 853, 87, 'Airbus A380', true, 'FIRST, BUSINESS, ECONOMY'),
                 ('B747', 524, 74, 'Boeing 747', true, 'FIRST, BUSINESS, ECONOMY'),

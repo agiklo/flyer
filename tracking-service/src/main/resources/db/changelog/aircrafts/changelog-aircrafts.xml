@@ -22,4 +22,40 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="renamecallSignColumn" author="mmilewczyk">
+        <renameColumn
+                tableName="aircrafts"
+                oldColumnName="callSign"
+                newColumnName="call_sign"
+                columnDataType="VARCHAR(10)"
+                remarks="Renaming column callSign to call_sign"/>
+    </changeSet>
+
+    <changeSet id="renameIsNewAircraftColumn" author="mmilewczyk">
+        <renameColumn
+                tableName="aircrafts"
+                oldColumnName="isNewAircraft"
+                newColumnName="is_new_aircraft"
+                columnDataType="boolean"
+                remarks="Renaming column isNewAircraft to is_new_aircraft"/>
+    </changeSet>
+
+    <changeSet id="renameLuxurySeatsColumn" author="mmilewczyk">
+        <renameColumn
+                tableName="aircrafts"
+                oldColumnName="luxurySeats"
+                newColumnName="luxury_seats"
+                columnDataType="integer"
+                remarks="Renaming column luxurySeats to luxury_seats"/>
+    </changeSet>
+
+    <changeSet id="renameSeatingCapacityColumn" author="mmilewczyk">
+        <renameColumn
+                tableName="aircrafts"
+                oldColumnName="seatingCapacity"
+                newColumnName="seating_capacity"
+                columnDataType="integer"
+                remarks="Renaming column seatingCapacity to seating_capacity"/>
+    </changeSet>
+
 </databaseChangeLog>

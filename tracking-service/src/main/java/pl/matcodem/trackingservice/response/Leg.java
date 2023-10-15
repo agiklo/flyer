@@ -1,8 +1,10 @@
 package pl.matcodem.trackingservice.response;
 
 import lombok.Builder;
+import pl.matcodem.trackingservice.enums.CabinClass;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Builder
 public record Leg(Integer durationMinutes,
@@ -10,7 +12,7 @@ public record Leg(Integer durationMinutes,
                   String departureAirportCode,
                   String arrivalAirportCode,
                   String airlineCode,
-                  String cabin,
+                  Set<CabinClass> cabins,
                   String designatorCode,
                   LocalDateTime departureDateTime,
                   LocalDateTime arrivalDateTime) {
