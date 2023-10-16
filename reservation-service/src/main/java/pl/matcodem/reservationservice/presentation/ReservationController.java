@@ -2,6 +2,7 @@ package pl.matcodem.reservationservice.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +23,13 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ReservationResponse> createReservation(@Valid @RequestBody ReservationRequest request) {
         ReservationResponse response = reservationService.createReservation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<ReservationResponse> updateReservation(@Valid @RequestBody UpdateReservationRequest request) {
         ReservationResponse response = reservationService.updateReservation(request);
         return ResponseEntity.ok(response);
@@ -41,9 +42,12 @@ public class ReservationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<ReservationResponse>> getAllReservations() {
-        List<ReservationResponse> responses = reservationService.getAllReservations();
+    @GetMapping
+    public ResponseEntity<Page<ReservationResponse>> getAllReservations(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Page<ReservationResponse> responses = reservationService.getAllReservations(page, size);
         return ResponseEntity.ok(responses);
     }
 
@@ -60,7 +64,7 @@ public class ReservationController {
         reservationService.cancelReservation(reservationId);
     }
 
-    @DeleteMapping("/delete/{reservationId}")
+    @DeleteMapping("/{reservationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReservation(@PathVariable ReservationId reservationId) {
         reservationService.deleteReservation(reservationId);

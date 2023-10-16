@@ -1,5 +1,6 @@
 package pl.matcodem.reservationservice.domain.service;
 
+import org.springframework.data.domain.Page;
 import pl.matcodem.reservationservice.application.request.ReservationRequest;
 import pl.matcodem.reservationservice.application.request.UpdateReservationRequest;
 import pl.matcodem.reservationservice.application.response.ReservationResponse;
@@ -15,7 +16,7 @@ public interface ReservationService {
     Optional<ReservationResponse> getReservationResponseById(ReservationId reservationId);
     Optional<Reservation> getReservationById(ReservationId reservationId);
 
-    List<ReservationResponse> getAllReservations();
+    Page<ReservationResponse> getAllReservations(int page, int size);
 
     ReservationResponse createReservation(ReservationRequest request);
 

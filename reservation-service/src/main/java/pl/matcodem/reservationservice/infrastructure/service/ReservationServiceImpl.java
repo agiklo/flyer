@@ -1,6 +1,9 @@
 package pl.matcodem.reservationservice.infrastructure.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.matcodem.reservationservice.application.events.ReservationCreatedEvent;
 import pl.matcodem.reservationservice.application.request.ReservationRequest;
@@ -102,10 +105,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<ReservationResponse> getAllReservations() {
+    public Page<ReservationResponse> getAllReservations(int page, int size) {
         List<Reservation> allReservations = repository.findAll();
 
-        return allReservations.stream()
+        List<ReservationResponse> reservationResponses = allReservations.stream()
                 .map(reservation -> helper.buildReservationResponse(
                         reservation.getId(),
                         reservation.getReservationDate(),
@@ -113,8 +116,9 @@ public class ReservationServiceImpl implements ReservationService {
                         helper.getFlightInfo(reservation.getFlightNumber())
                 ))
                 .toList();
-    }
 
+        return new PageImpl<>(reservationResponses, PageRequest.of(page, size), allReservations.size());
+    }
 
     @Override
     public void cancelReservation(ReservationId reservationId) {

@@ -18,7 +18,7 @@ public class ReservationResponseBuilder {
     ) {
         return ReservationResponse.builder()
                 .reservationId(reservationId)
-                .reservationDate(reservationDate.date())
+                .reservationDate(reservationDate)
                 .passenger(passenger)
                 .flightInfo(flightInfo)
                 .price(BigDecimal.ZERO)
