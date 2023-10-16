@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet author="mmilewczyk" id="insert-airports-data">
+        <sql>
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EPGD', 'Lech Walesa', 'Europe', 'Poland', 54.377569, 18.466222);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EKCH', 'Kastrup', 'Europe', 'Denmark', 55.617917, 12.655972);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EGLL', 'Heathrow', 'Europe', 'United Kingdom', 51.4775, -0.461389);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EGSS', 'Stansted', 'Europe', 'United Kingdom', 51.885, 0.235);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LSZH', 'Zurich', 'Europe', 'Switzerland', 47.464722, 8.549167);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ESKN', 'Skavsta', 'Europe', 'Sweden', 58.788636, 16.912189);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LSGG', 'Geneve Cointrin', 'Europe', 'Switzerland', 46.238064, 6.10895);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LEVC', 'Valencia', 'Europe', 'Spain', 39.489314, -0.481625);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LEMG', 'Malaga', 'Europe', 'Spain', 36.6749, -4.499106);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LEIB', 'Ibiza', 'Europe', 'Spain', 38.872858, 1.373117);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LEBL', 'Barcelona', 'Europe', 'Spain', 41.297078, 2.078464);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LZIB', 'M R Stefanik', 'Europe', 'Slovakia', 48.170167, 17.212667);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LYBE', 'Beograd', 'Europe', 'Serbia', 44.818444, 20.309139);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LROP', 'Henri Coanda', 'Europe', 'Romania', 44.572161, 26.102178);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LPPR', 'Porto', 'Europe', 'Portugal', 41.248055, -8.681389);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LPMA', 'Madeira', 'Europe', 'Portugal', 32.697889, -16.774453);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LPPT', 'Lisboa', 'Europe', 'Portugal', 38.781311, -9.135919);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EPWR', 'Strachowice', 'Europe', 'Poland', 51.102683, 16.885836);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EPWA', 'Okecie', 'Europe', 'Poland', 52.16575, 20.967122);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EPKK', 'Balice', 'Europe', 'Poland', 50.077731, 19.784836);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ENVA', 'Vaernes', 'Europe', 'Norway', 63.457556, 10.92425);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ENTC', 'Langnes', 'Europe', 'Norway', 69.683333, 18.918919);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ENZV', 'Sola', 'Europe', 'Norway', 58.876778, 5.637856);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ENGM', 'Gardermoen', 'Europe', 'Norway', 60.193917, 11.100361);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ENBR', 'Flesland', 'Europe', 'Norway', 60.293386, 5.218142);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LWSK', 'Skopje', 'Europe', 'Macedonia', 41.961622, 21.621381);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EHRD', 'Rotterdam', 'Europe', 'Netherlands', 51.956944, 4.437222);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EHEH', 'Eindhoven', 'Europe', 'Netherlands', 51.450139, 5.374528);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EHAM', 'Schiphol', 'Europe', 'Netherlands', 52.308613, 4.763889);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LYTV', 'Tivat', 'Europe', 'Montenegro', 42.404664, 18.723286);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LUKK', 'Chisinau Intl', 'Europe', 'Moldova', 46.927744, 28.930978);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LMML', 'Luqa', 'Europe', 'Malta', 35.857497, 14.4775);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('ELLX', 'Luxembourg', 'Europe', 'Luxembourg', 49.626575, 6.211517);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EYVI', 'Vilnius Intl', 'Europe', 'Lithuania', 54.634133, 25.285767);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EVRA', 'Riga Intl', 'Europe', 'Latvia', 56.923611, 23.971111);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIPX', 'Villafranca', 'Europe', 'Italy', 45.395706, 10.888533);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIPZ', 'Venezia Tessera', 'Europe', 'Italy', 45.505278, 12.351944);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIMF', 'Torino', 'Europe', 'Italy', 45.200761, 7.649631);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIRF', 'Fiumicino', 'Europe', 'Italy', 41.804475, 12.250797);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIRA', 'Ciampino', 'Europe', 'Italy', 41.799361, 12.594936);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIRP', 'Pisa', 'Europe', 'Italy', 43.683917, 10.39275);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LICJ', 'Palermo', 'Europe', 'Italy', 38.175958, 13.091019);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIRN', 'Capodichino', 'Europe', 'Italy', 40.886033, 14.290781);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIMC', 'Malpensa', 'Europe', 'Italy', 45.630606, 8.728111);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIML', 'Linate', 'Europe', 'Italy', 45.445103, 9.276739);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIRQ', 'Firenze', 'Europe', 'Italy', 43.809953, 11.2051);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIPE', 'Bologna', 'Europe', 'Italy', 44.535444, 11.288667);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIME', 'Bergamo Orio Al Serio', 'Europe', 'Italy', 45.673889, 9.704166);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LIBD', 'Bari', 'Europe', 'Italy', 41.138856, 16.760594);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LHBP', 'Ferihegy', 'Europe', 'Hungary', 47.436933, 19.255592);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('BIKF', 'Keflavik International Airport', 'Europe', 'Iceland', 63.985, -22.605556);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LGSR', 'Santorini', 'Europe', 'Greece', 36.399169, 25.479333);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LGRP', 'Rhodes Diagoras', 'Europe', 'Greece', 36.405419, 28.086192);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LGMK', 'Mikonos', 'Europe', 'Greece', 37.435128, 25.348103);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LGKR', 'Ioannis Kapodistrias Intl', 'Europe', 'Greece', 39.601944, 19.911667);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LGAV', 'Eleftherios Venizelos Intl', 'Europe', 'Greece', 37.936358, 23.944467);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EDDM', 'Franz Josef Strauss', 'Europe', 'Germany', 48.353783, 11.786086);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EDDH', 'Hamburg', 'Europe', 'Germany', 53.630389, 9.988228);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EDDF', 'Frankfurt Main', 'Europe', 'Germany', 50.026421, 8.543125);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EDDB', 'Berlin Brandenburg Willy Brandt', 'Europe', 'Germany', 52.366667, 13.503333);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LFOB', 'Tille', 'Europe', 'France', 49.454444, 2.112778);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LFPG', 'Charles De Gaulle', 'Europe', 'France', 49.012779, 2.55);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LFBD', 'Merignac', 'Europe', 'France', 44.828335, -0.715556);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EFTU', 'Turku', 'Europe', 'Finland', 60.514142, 22.262808);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EFHK', 'Helsinki Vantaa', 'Europe', 'Finland', 60.317222, 24.963333);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EKBI', 'Billund', 'Europe', 'Denmark', 55.740322, 9.151778);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EKAH', 'Aarhus', 'Europe', 'Denmark', 56.300017, 10.619008);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LKPR', 'Ruzyne', 'Europe', 'Czech Republic', 50.100833, 14.26);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LDZA', 'Zagreb', 'Europe', 'Croatia', 45.742931, 16.068778);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LDZD', 'Zadar', 'Europe', 'Croatia', 44.108269, 15.346697);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LDSP', 'Split', 'Europe', 'Croatia', 43.538944, 16.297964);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LBSF', 'Sofia', 'Europe', 'Bulgaria', 42.695194, 23.406167);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LQSA', 'Sarajevo', 'Europe', 'Bosnia and Herzegovina', 43.824583, 18.331467);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('EBBR', 'Brussels Natl', 'Europe', 'Belgium', 50.901389, 4.484444);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LOWW', 'Schwechat', 'Europe', 'Austria', 48.110278, 16.569722);
+            INSERT INTO public.airports (icao_code, name, continent, country, latitude, longitude) VALUES ('LATI', 'Tirana Rinas', 'Europe', 'Albania', 41.414742, 19.720561);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

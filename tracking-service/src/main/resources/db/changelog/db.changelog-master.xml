@@ -11,4 +11,5 @@
     <include file="/db/changelog/flights/changelog-flights.xml"/>
     <include file="/db/changelog/stopovers/changelog-stopovers.xml"/>
     <include file="/db/changelog/aircrafts/changelog-aircrafts-init-data.xml"/>
+    <include file="/db/changelog/airports/changelog-airports-init-data.xml"/>
 </databaseChangeLog>
