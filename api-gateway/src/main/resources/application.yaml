@@ -19,3 +19,15 @@ spring:
           uri: lb://reservation-service
           predicates:
             - Path=/api/v1/reservations/**
+        - id: tracking-service
+          uri: lb://tracking-service
+          predicates:
+            - Path=/api/v1/trips/oneway-trip/**
+          filters:
+            - RewritePath=/api/v1/trips/oneway-trip/(?<remaining>.*), /$\{remaining}
+        - id: tracking-service
+          uri: lb://tracking-service
+          predicates:
+            - Path=/api/v1/trips/round-trip/**
+          filters:
+            - RewritePath=/api/v1/trips/round-trip/(?<remaining>.*), /$\{remaining}
