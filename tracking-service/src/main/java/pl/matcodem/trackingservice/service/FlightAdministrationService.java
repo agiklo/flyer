@@ -1,6 +1,7 @@
 package pl.matcodem.trackingservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.matcodem.trackingservice.entity.Aircraft;
 import pl.matcodem.trackingservice.entity.Airline;
@@ -13,10 +14,13 @@ import pl.matcodem.trackingservice.repository.FlightRepository;
 import pl.matcodem.trackingservice.request.FlightCreateRequest;
 import pl.matcodem.trackingservice.service.external.api.airport.AirportInfo;
 import pl.matcodem.trackingservice.service.external.api.airport.ExternalAirportDatabase;
+import pl.matcodem.trackingservice.service.external.api.country.CountryInfo;
+import pl.matcodem.trackingservice.service.external.api.country.ExternalCountryDatabase;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class FlightAdministrationService {
 
@@ -25,6 +29,7 @@ public class FlightAdministrationService {
     private final FlightRepository flightRepository;
     private final AircraftRepository aircraftRepository;
     private final ExternalAirportDatabase airportDatabase;
+    private final ExternalCountryDatabase countryDatabase;
 
     public Flight createFlight(FlightCreateRequest request) {
         Airport departureAirport = getOrCreateAirportByIcaoCode(request.getDepartureAirportIcaoCode());
@@ -58,14 +63,36 @@ public class FlightAdministrationService {
 
     private Airport createAirportFromExternalData(String icaoCode) {
         AirportInfo airportInfo = airportDatabase.getAirportInfoByIcaoCode(icaoCode).block();
+
+        if (airportInfo == null) {
+            log.error("Failed to retrieve airport information for ICAO code: {}", icaoCode);
+            return null;
+        }
+
+        String countryName = airportInfo.country();
+        String continent = getContinentForCountry(countryName);
+
         Airport airport = Airport.builder()
                 .icaoCode(airportInfo.icao())
                 .name(airportInfo.airport_name())
-                .continent("Europe")
-                .country(airportInfo.country())
+                .continent(continent)
+                .country(countryName)
                 .latitude(airportInfo.latitude())
                 .longitude(airportInfo.longitude())
                 .build();
-        return airportRepository.saveAndFlush(airport);
+
+        try {
+            airport = airportRepository.saveAndFlush(airport);
+            log.info("Created airport: ICAO={}, Name={}", airport.getIcaoCode(), airport.getName());
+            return airport;
+        } catch (Exception e) {
+            log.error("Failed to save airport information for ICAO code: {}", icaoCode, e);
+            return null;
+        }
+    }
+
+    private String getContinentForCountry(String countryName) {
+        Optional<CountryInfo> countryInfo = countryDatabase.getCountryInfoByName(countryName);
+        return countryInfo.map(CountryInfo::region).orElse("No data");
     }
 }
