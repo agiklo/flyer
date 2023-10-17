@@ -11,7 +11,7 @@ import pl.matcodem.trackingservice.service.FlightService;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/flights")
+@RequestMapping("/api/v1/flights")
 @RequiredArgsConstructor
 public class FlightRestController {
 
