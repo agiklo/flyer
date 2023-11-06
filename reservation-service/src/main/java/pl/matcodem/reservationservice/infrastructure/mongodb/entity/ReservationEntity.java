@@ -21,6 +21,7 @@ public class ReservationEntity {
     private List<Passenger> passengers;
     private String flightNumber;
     private FlightReservationStatus status;
+    private Cost cost;
 
     public Reservation toReservation() {
         return new Reservation(
@@ -29,6 +30,7 @@ public class ReservationEntity {
                 new ReservationDate(reservationDate),
                 passengers,
                 new FlightNumber(flightNumber),
+                cost,
                 status
         );
     }
@@ -40,6 +42,7 @@ public class ReservationEntity {
         entity.setReservationDate(reservation.getReservationDate().date());
         entity.setPassengers(reservation.getPassengers());
         entity.setFlightNumber(reservation.getFlightNumber().number());
+        entity.setCost(reservation.getCost());
         entity.setStatus(reservation.getStatus());
         return entity;
     }

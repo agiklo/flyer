@@ -27,6 +27,8 @@ public record ReservationResponse(
             String cabin,
             Integer durationMinutes,
             LocalDateTime departureDateTime,
-            LocalDateTime arrivalDateTime
+            LocalDateTime arrivalDateTime,
+            BigDecimal ticketPrice,
+            BigDecimal extraFees
     ) {}
 }

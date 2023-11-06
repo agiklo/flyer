@@ -18,6 +18,8 @@ public class FlightResponseMapper {
                 .durationMinutes(flightResponse.durationMinutes())
                 .departureDateTime(flightResponse.departureDateTime())
                 .arrivalDateTime(flightResponse.arrivalDateTime())
+                .ticketPrice(flightResponse.ticketPrice())
+                .extraFees(flightResponse.extraFees())
                 .build();
     }
 }

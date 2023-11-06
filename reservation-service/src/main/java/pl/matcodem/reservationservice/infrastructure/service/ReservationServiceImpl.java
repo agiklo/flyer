@@ -40,6 +40,9 @@ public class ReservationServiceImpl implements ReservationService {
         FlightNumber flightNumber = request.getFlightNumber();
         helper.ensureFlightExists(flightNumber);
 
+        ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
+        Cost cost = new Cost(flightInfo.ticketPrice(), flightInfo.extraFees());
+
         ReservationCode reservationCode = ReservationCode.of(UUID.randomUUID().toString());
         ReservationDate reservationDate = request.getReservationDate();
         var passengers = request.getPassengers();
@@ -50,6 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
                 reservationDate,
                 passengers,
                 flightNumber,
+                cost,
                 FlightReservationStatus.PENDING
         );
         Reservation savedReservation = repository.save(reservation);
@@ -62,7 +66,6 @@ public class ReservationServiceImpl implements ReservationService {
 
         kafkaEventProducer.sendEvent(KafkaTopics.RESERVATION_CREATED.getTopicName(), event);
 
-        ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
         return helper.buildReservationResponse(savedReservation.getId(), reservationDate, passengers, flightInfo);
     }
 

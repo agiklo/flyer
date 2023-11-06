@@ -9,6 +9,7 @@ import pl.matcodem.reservationservice.domain.model.valueobjects.*;
 import pl.matcodem.reservationservice.exceptions.ReservationModificationNotAllowedException;
 import pl.matcodem.reservationservice.util.DateCalculator;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collections;
@@ -56,6 +57,7 @@ class ModificationPeriodValidatorTest {
                         "Window"
                 )),
                 new FlightNumber(UUID.randomUUID().toString()),
+                new Cost(new BigDecimal(450), new BigDecimal(20)),
                 FlightReservationStatus.CONFIRMED
         );
 
@@ -90,6 +92,7 @@ class ModificationPeriodValidatorTest {
                         "Window"
                 )),
                 new FlightNumber(UUID.randomUUID().toString()),
+                new Cost(new BigDecimal(450), new BigDecimal(20)),
                 FlightReservationStatus.CONFIRMED
         );
 

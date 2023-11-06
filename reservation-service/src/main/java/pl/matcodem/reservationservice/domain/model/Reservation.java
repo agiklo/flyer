@@ -15,5 +15,6 @@ public class Reservation {
     private ReservationDate reservationDate;
     private List<Passenger> passengers;
     private FlightNumber flightNumber;
+    private Cost cost;
     private FlightReservationStatus status;
 }

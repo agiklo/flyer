@@ -1,5 +1,6 @@
 package pl.matcodem.reservationservice.infrastructure.flight;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record FlightResponse(
@@ -11,7 +12,9 @@ public record FlightResponse(
         String cabin,
         Integer durationMinutes,
         LocalDateTime departureDateTime,
-        LocalDateTime arrivalDateTime
+        LocalDateTime arrivalDateTime,
+        BigDecimal ticketPrice,
+        BigDecimal extraFees
 ) {}
 
 
