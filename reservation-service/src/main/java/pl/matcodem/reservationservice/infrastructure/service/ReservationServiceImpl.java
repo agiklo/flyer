@@ -21,6 +21,7 @@ import pl.matcodem.reservationservice.infrastructure.validator.ModificationPerio
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -40,12 +41,15 @@ public class ReservationServiceImpl implements ReservationService {
         FlightNumber flightNumber = request.getFlightNumber();
         helper.ensureFlightExists(flightNumber);
 
-        ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
-        Cost cost = new Cost(flightInfo.ticketPrice(), flightInfo.extraFees());
 
         ReservationCode reservationCode = ReservationCode.of(UUID.randomUUID().toString());
         ReservationDate reservationDate = request.getReservationDate();
-        var passengers = request.getPassengers();
+        List<Passenger> passengers = request.getPassengers();
+
+        Set<String> seats = helper.validateChoosenSeats(flightNumber, passengers);
+
+        ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
+        Cost cost = new Cost(flightInfo.ticketPrice(), flightInfo.extraFees());
 
         Reservation reservation = new Reservation(
                 ReservationId.generate(),
@@ -56,11 +60,18 @@ public class ReservationServiceImpl implements ReservationService {
                 cost,
                 FlightReservationStatus.PENDING
         );
+
         Reservation savedReservation = repository.save(reservation);
+
+        if (seats != null && !seats.isEmpty()) {
+            seats.forEach(seat -> helper.reserveSeatInClass(request.getFlightNumber(), seat));
+        }
 
         ReservationCreatedEvent event = new ReservationCreatedEvent(
                 savedReservation.getId().value(),
-                passengers.stream().map(Passenger::pesel).toList(),
+                passengers.stream()
+                        .map(Passenger::pesel)
+                        .toList(),
                 "Flight details: " + helper.getFlightInfo(flightNumber).toString()
         );
 

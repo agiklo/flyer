@@ -36,7 +36,7 @@ public record Passenger(
         @NotBlank(message = "Ticket class is required")
         String ticketClass,
 
-        String seatPreference
+        String seat
 ) {
     public Passenger {
         if ((pesel == null && passportNumber == null) ||
@@ -49,10 +49,10 @@ public record Passenger(
             String firstName, String lastName, String pesel, String passportNumber,
             String email, String phoneNumber, LocalDate dateOfBirth,
             int age, String specialRequirements, String ticketClass,
-            String seatPreference) {
+            String seat) {
         return new Passenger(
                 firstName, lastName, pesel, passportNumber, email, phoneNumber,
-                dateOfBirth, age, specialRequirements, ticketClass, seatPreference);
+                dateOfBirth, age, specialRequirements, ticketClass, seat);
     }
 
     public interface PeselValidationGroup {
