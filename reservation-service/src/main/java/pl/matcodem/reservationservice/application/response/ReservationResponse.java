@@ -7,13 +7,14 @@ import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 public record ReservationResponse(
         ReservationId reservationId,
         FlightInfo flightInfo,
         BigDecimal price,
-        Passenger passenger,
+        List<Passenger> passenger,
         ReservationDate reservationDate
 ) {
     @Builder

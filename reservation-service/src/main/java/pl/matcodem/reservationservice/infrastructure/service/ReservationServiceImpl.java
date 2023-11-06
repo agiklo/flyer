@@ -42,13 +42,13 @@ public class ReservationServiceImpl implements ReservationService {
 
         ReservationCode reservationCode = ReservationCode.of(UUID.randomUUID().toString());
         ReservationDate reservationDate = request.getReservationDate();
-        Passenger passenger = request.getPassenger();
+        var passengers = request.getPassengers();
 
         Reservation reservation = new Reservation(
                 ReservationId.generate(),
                 reservationCode,
                 reservationDate,
-                passenger,
+                passengers,
                 flightNumber,
                 FlightReservationStatus.PENDING
         );
@@ -56,27 +56,27 @@ public class ReservationServiceImpl implements ReservationService {
 
         ReservationCreatedEvent event = new ReservationCreatedEvent(
                 savedReservation.getId().value(),
-                passenger.pesel(),
+                passengers.stream().map(Passenger::pesel).toList(),
                 "Flight details: " + helper.getFlightInfo(flightNumber).toString()
         );
 
         kafkaEventProducer.sendEvent(KafkaTopics.RESERVATION_CREATED.getTopicName(), event);
 
         ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
-        return helper.buildReservationResponse(savedReservation.getId(), reservationDate, passenger, flightInfo);
+        return helper.buildReservationResponse(savedReservation.getId(), reservationDate, passengers, flightInfo);
     }
 
     @Override
     public ReservationResponse updateReservation(UpdateReservationRequest request) {
         ReservationId reservationId = request.reservationId();
-        Passenger newPassenger = request.newPassenger();
+        var newPassengers = request.newPassengers();
 
         Reservation existingReservation = repository.findById(reservationId)
                 .orElseThrow(() -> new ReservationNotFoundException(RESERVATION_NOT_FOUND));
 
         modificationPeriodValidator.isReservationWithinAllowedModificationPeriod(existingReservation);
 
-        existingReservation.setPassenger(newPassenger);
+        existingReservation.setPassengers(newPassengers);
 
         Reservation updatedReservation = repository.save(existingReservation);
 
@@ -84,7 +84,7 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationResponse.FlightInfo flightInfo = helper.getFlightInfo(flightNumber);
 
         ReservationDate reservationDate = updatedReservation.getReservationDate();
-        return helper.buildReservationResponse(updatedReservation.getId(), reservationDate, newPassenger, flightInfo);
+        return helper.buildReservationResponse(updatedReservation.getId(), reservationDate, newPassengers, flightInfo);
     }
 
 
@@ -94,7 +94,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .map(reservation -> helper.buildReservationResponse(
                         reservationId,
                         reservation.getReservationDate(),
-                        reservation.getPassenger(),
+                        reservation.getPassengers(),
                         helper.getFlightInfo(reservation.getFlightNumber())
                 ));
     }
@@ -112,7 +112,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .map(reservation -> helper.buildReservationResponse(
                         reservation.getId(),
                         reservation.getReservationDate(),
-                        reservation.getPassenger(),
+                        reservation.getPassengers(),
                         helper.getFlightInfo(reservation.getFlightNumber())
                 ))
                 .toList();
@@ -139,7 +139,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .map(reservation -> helper.buildReservationResponse(
                         reservation.getId(),
                         reservation.getReservationDate(),
-                        reservation.getPassenger(),
+                        reservation.getPassengers(),
                         helper.getFlightInfo(reservation.getFlightNumber())
                 ))
                 .toList();

@@ -11,6 +11,8 @@ import pl.matcodem.reservationservice.infrastructure.flight.FlightResponse;
 import pl.matcodem.reservationservice.infrastructure.flight.FlightService;
 import pl.matcodem.reservationservice.infrastructure.mapper.FlightResponseMapper;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceHelper {
@@ -31,8 +33,8 @@ public class ReservationServiceHelper {
     }
 
     ReservationResponse buildReservationResponse(
-            ReservationId reservationId, ReservationDate reservationDate, Passenger passenger, ReservationResponse.FlightInfo flightInfo
+            ReservationId reservationId, ReservationDate reservationDate, List<Passenger> passengers, ReservationResponse.FlightInfo flightInfo
     ) {
-        return responseBuilder.build(reservationId, reservationDate, passenger, flightInfo);
+        return responseBuilder.build(reservationId, reservationDate, passengers, flightInfo);
     }
 }

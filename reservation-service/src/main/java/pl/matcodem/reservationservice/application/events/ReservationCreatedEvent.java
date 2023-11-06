@@ -1,6 +1,8 @@
 package pl.matcodem.reservationservice.application.events;
 
-public record ReservationCreatedEvent(String reservationId, String passengerName,
+import java.util.List;
+
+public record ReservationCreatedEvent(String reservationId, List<String> passengerPesels,
                                       String flightDetails) implements Event {
 }
 

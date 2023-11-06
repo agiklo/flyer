@@ -7,6 +7,8 @@ import pl.matcodem.reservationservice.domain.model.valueobjects.FlightNumber;
 import pl.matcodem.reservationservice.domain.model.valueobjects.Passenger;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationDate;
 
+import java.util.List;
+
 @Data
 public class ReservationRequest {
 
@@ -16,7 +18,7 @@ public class ReservationRequest {
 
     @Valid
     @NotNull
-    private Passenger passenger;
+    private List<Passenger> passengers;
 
     @Valid
     @NotNull

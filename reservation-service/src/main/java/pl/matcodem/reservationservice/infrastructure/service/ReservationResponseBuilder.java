@@ -7,19 +7,20 @@ import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationDate;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ReservationResponseBuilder {
     public ReservationResponse build(
             ReservationId reservationId,
             ReservationDate reservationDate,
-            Passenger passenger,
+            List<Passenger> passengers,
             ReservationResponse.FlightInfo flightInfo
     ) {
         return ReservationResponse.builder()
                 .reservationId(reservationId)
                 .reservationDate(reservationDate)
-                .passenger(passenger)
+                .passenger(passengers)
                 .flightInfo(flightInfo)
                 .price(BigDecimal.ZERO)
                 .build();

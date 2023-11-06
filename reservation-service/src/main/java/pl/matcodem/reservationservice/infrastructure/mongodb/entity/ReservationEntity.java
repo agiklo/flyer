@@ -8,6 +8,7 @@ import pl.matcodem.reservationservice.domain.model.Reservation;
 import pl.matcodem.reservationservice.domain.model.valueobjects.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,9 +18,7 @@ public class ReservationEntity {
     private String id;
     private String reservationCode;
     private LocalDate reservationDate;
-    private String firstName;
-    private String lastName;
-    private String pesel;
+    private List<Passenger> passengers;
     private String flightNumber;
     private FlightReservationStatus status;
 
@@ -28,7 +27,7 @@ public class ReservationEntity {
                 new ReservationId(id),
                 new ReservationCode(reservationCode),
                 new ReservationDate(reservationDate),
-                new Passenger(firstName, lastName, pesel),
+                passengers,
                 new FlightNumber(flightNumber),
                 status
         );
@@ -39,9 +38,7 @@ public class ReservationEntity {
         entity.setId(reservation.getId().value());
         entity.setReservationCode(reservation.getReservationCode().code());
         entity.setReservationDate(reservation.getReservationDate().date());
-        entity.setFirstName(reservation.getPassenger().firstName());
-        entity.setLastName(reservation.getPassenger().lastName());
-        entity.setPesel(reservation.getPassenger().pesel());
+        entity.setPassengers(reservation.getPassengers());
         entity.setFlightNumber(reservation.getFlightNumber().number());
         entity.setStatus(reservation.getStatus());
         return entity;

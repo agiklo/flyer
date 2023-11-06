@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import pl.matcodem.reservationservice.domain.model.valueobjects.Passenger;
 import pl.matcodem.reservationservice.domain.model.valueobjects.ReservationId;
 
-public record UpdateReservationRequest(@NotNull ReservationId reservationId, @NotNull Passenger newPassenger) {
+import java.util.List;
+
+public record UpdateReservationRequest(@NotNull ReservationId reservationId, @NotNull List<Passenger> newPassengers) {
 }
 

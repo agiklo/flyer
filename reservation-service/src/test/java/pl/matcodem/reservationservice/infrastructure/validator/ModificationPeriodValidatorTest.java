@@ -11,6 +11,7 @@ import pl.matcodem.reservationservice.util.DateCalculator;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Collections;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -41,7 +42,19 @@ class ModificationPeriodValidatorTest {
                 new ReservationId(UUID.randomUUID().toString()),
                 new ReservationCode(UUID.randomUUID().toString()),
                 new ReservationDate(flightDate),
-                new Passenger("John", "Lee", "20041752137"),
+                Collections.singletonList(new Passenger(
+                        "John",
+                        "Doe",
+                        "12345678901",
+                        null,
+                        "john@example.com",
+                        "123456789",
+                        LocalDate.of(2000, 4, 3),
+                        23,
+                        "None",
+                        "Economy",
+                        "Window"
+                )),
                 new FlightNumber(UUID.randomUUID().toString()),
                 FlightReservationStatus.CONFIRMED
         );
@@ -63,7 +76,19 @@ class ModificationPeriodValidatorTest {
                 new ReservationId(UUID.randomUUID().toString()),
                 new ReservationCode(UUID.randomUUID().toString()),
                 new ReservationDate(flightDate),
-                new Passenger("John", "Lee", "20041752137"),
+                Collections.singletonList(new Passenger(
+                        "John",
+                        "Doe",
+                        "12345678901",
+                        null,
+                        "john@example.com",
+                        "123456789",
+                        LocalDate.of(2000, 4, 3),
+                        23,
+                        "None",
+                        "Economy",
+                        "Window"
+                )),
                 new FlightNumber(UUID.randomUUID().toString()),
                 FlightReservationStatus.CONFIRMED
         );
